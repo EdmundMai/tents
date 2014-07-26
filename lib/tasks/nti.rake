@@ -1,6 +1,6 @@
 namespace :nti do
   
-  desc "Create admin nettheory user"
+  desc "Create admin user"
   task(:create_admin_user => :environment) do
     unless User.exists?(email: "admin@admin.com")
       user = User.new
