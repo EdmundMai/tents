@@ -3,20 +3,20 @@
 # Supports bulk-adding hosts to roles, the primary server in each group
 # is considered to be the first unless any hosts have the primary
 # property set.  Don't declare `role :all`, it's a meta role.
+set :rails_env, 'production'
+set :stage, :production
+set :deploy_to, '/usr/local/www/toddlertents-production'
 
-role :app, %w{deploy@example.com}
-role :web, %w{deploy@example.com}
-role :db,  %w{deploy@example.com}
+
+role :app, %w{toddlertents.com}
+role :web, %w{toddlertents.com}
+role :db, %w{toddlertents.com}
 
 
-# Extended Server Syntax
-# ======================
-# This can be used to drop a more detailed server definition into the
-# server list. The second argument is a, or duck-types, Hash and is
-# used to set extended properties on the server.
+set :use_sudo, false
+set :deploy_via, :copy
 
-server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
-
+server 'toddlertents.com', user: 'deployer', group: 'dev', roles: %w{web app db}, primary: true
 
 # Custom SSH Options
 # ==================
