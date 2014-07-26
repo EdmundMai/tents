@@ -10,12 +10,20 @@ class UsaepayWrapper
     @transaction = UmTransaction.new
     # These two attributes need to get set for USAePay to work:
     # These credentials will differ between the sandbox and production accounts
-    # @transaction.key="Your_source_key_here"
-    # @transaction.pin="1234"
+    
+    if Rails.env.production?
+      raise "make an account at paysimple"
+      transaction.usesandbox = false
+    else
+      @transaction.key="_yOvA59g2w29z89f5XxK497WH8HxWF00"
+      @transaction.pin="1234"
+      @transaction.usesandbox = true
+    end
+
     
     #sign up for a sandbox test account here: https://www.usaepay.com/developer/
     # more details on this page: http://wiki.usaepay.com/developer/sandbox
-    @transaction.usesandbox = true unless Rails.env.production?
+    
     @transaction.command = "authonly"
     
     @transaction.card = args.fetch(:credit_card_number) { '' }
@@ -35,9 +43,10 @@ class UsaepayWrapper
   
   
   def authorize
-    # @transaction.process
-    # @transaction.resultcode.first == "A"
-    true
+    @transaction.process
+    puts "@transaction.resultcode.first = #{@transaction.resultcode.first}"
+    @transaction.resultcode.first == "A"
+    # true
   end
 
   

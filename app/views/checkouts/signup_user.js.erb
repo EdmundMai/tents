@@ -5,7 +5,7 @@
 		<% end %>	
 		jQuery('html,body').animate({scrollTop:0},300);
 		<% else %>
-		$("nav").html("<%=j render 'shared/navbar' %>");
+		$(".navbar-container").html("<%=j render 'shared/navbar' %>");
 		$(".user_info").fadeOut();
 
 		$(".payment_info :input").attr("disabled", false);

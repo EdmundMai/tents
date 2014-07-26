@@ -6,6 +6,10 @@ Given(/^an existing user$/) do
   FactoryGirl.create(:user, guest: false)
 end
 
+Given(/^an existing shipping method$/) do
+  FactoryGirl.create(:ups_ground)
+end
+
 When(/^I fill in the form to log in at the checkout page$/) do
   within(".user_info") do
     click_link("Log in")
@@ -61,7 +65,9 @@ When(/^I visit the shopping cart page$/) do
 end
 
 When(/^I remove an item from my cart$/) do
-  first(:link, "X").click
+  cart_item = CartItem.last
+  first("a[href='/cart_items/#{cart_item.id}']").click
+  # first(:link, "X").click
 end
 
 Then(/^my cart should have no items$/) do
@@ -69,12 +75,18 @@ Then(/^my cart should have no items$/) do
   expect(user.cart.cart_items).to be_empty
 end
 
+Then(/^I should see a "(.*?)" button$/) do |button_text|
+  expect(page).to have_button(button_text)
+end
+
+
 Then(/^I should see a "(.*?)" link$/) do |link_text|
   expect(page).to have_link(link_text)
 end
 
 When(/^I checkout$/) do
-  click_link("Checkout")
+  click_button("Checkout", exact: false)
+  # click_link("Checkout")
 end
 
 When(/^I fill in the form to create a new account$/) do
@@ -164,17 +176,18 @@ When(/^I fill in a invalid credit card$/) do
 end
 
 Then(/^I should see errors for my payment info$/) do
+  sleep 2
   expect(page).to have_content("Shipping address first name can't be blank")
   expect(page).to have_content("Shipping address last name can't be blank")
   expect(page).to have_content("Shipping address street address can't be blank")
-  expect(page).to have_content("Shipping address street address2 can't be blank")
+  expect(page).to have_content("Shipping address apt/suite can't be blank")
   expect(page).to have_content("Shipping address zip code can't be blank")
   expect(page).to have_content("Shipping address city can't be blank")
   expect(page).to have_content("Shipping address phone number can't be blank")
   expect(page).to have_content("Billing address first name can't be blank")
   expect(page).to have_content("Billing address last name can't be blank")
   expect(page).to have_content("Billing address street address can't be blank")
-  expect(page).to have_content("Billing address street address2 can't be blank")
+  expect(page).to have_content("Billing address apt/suite can't be blank")
   expect(page).to have_content("Billing address zip code can't be blank")
   expect(page).to have_content("Billing address city can't be blank")
   expect(page).to have_content("Billing address phone number can't be blank")
@@ -266,8 +279,12 @@ end
 Then(/^my subtotal should be discounted by a flat amount$/) do
   sleep 1
   order = Order.last
-  cart = Cart.last
+  cart = order.user.cart
   flat_coupon = FlatCoupon.last
+  puts "cart = #{cart.inspect}"
+  puts "cart.cart_items = #{cart.cart_items.inspect}"
+  puts "order = #{order.inspect}"
+  puts "flat_coupon = #{flat_coupon.inspect}"
   expect(order.subtotal).to eq(cart.total)
   expect(order.savings).to eq(Money.new(flat_coupon.value*100))
   expect(page).to have_content("Savings")
@@ -275,9 +292,11 @@ Then(/^my subtotal should be discounted by a flat amount$/) do
 end
 
 When(/^I fill in the form to sign up at the checkout page$/) do
-  click_link("Sign up")
-  fill_in("user[email]", with: "abc123@yahoo.com")
-  fill_in("user[password]", with: "test123")
+  within(".main-container") do
+    click_link("Sign up")
+    fill_in("user[email]", with: "abc123@yahoo.com")
+    fill_in("user[password]", with: "test123")
+  end
 end
 
 
@@ -290,7 +309,7 @@ end
 Then(/^my subtotal should be discounted by a percentage amount$/) do
   sleep 1
   order = Order.last
-  cart = Cart.last
+  cart = order.user.cart
   percentage_coupon = PercentageCoupon.last
   expect(order.subtotal).to eq(cart.total)
   expect(order.savings).to eq(cart.total * percentage_coupon.value / 100 )
@@ -334,8 +353,10 @@ Then(/^I should be on the checkout page$/) do
 end
 
 When(/^I fill in the form to sign up at the checkout page with an invalid email$/) do
-  click_link("Sign up")
-  click_button("Sign up")
+  within(".main-container") do
+    click_link("Sign up")
+    click_button("Sign up")
+  end
 end
 
 Then(/^I should see sign up errors$/) do
@@ -344,10 +365,10 @@ Then(/^I should see sign up errors$/) do
 end
 
 When(/^I fill in the form to log in at the checkout page with an invalid password$/) do
-  within(".user_info") do
+  within(".main-container") do
     click_link("Log in")
+    click_button("Log in")
   end
-  click_button("Log in")
 end
 
 Then(/^I should see sign in errors$/) do

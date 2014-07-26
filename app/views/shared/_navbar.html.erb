@@ -1,0 +1,10 @@
+<ul class="nav navbar-nav">
+		                
+	<% if current_user %>
+	<li class="float-right"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+	<% else %>
+	<li class="float-right"><%= link_to "Log in", new_user_session_path %></li>
+	<li class="float-right"><%= link_to "Sign up", new_user_registration_path %></li>
+	<% end %>
+	<li class="float-right"><%= link_to "Shopping Cart", checkout_path %></li>
+</ul>

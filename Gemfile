@@ -70,6 +70,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'vcr'
   gem 'webmock'
 end
 # Use ActiveModel has_secure_password

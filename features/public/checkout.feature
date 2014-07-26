@@ -21,11 +21,12 @@ Feature: Checkout
 		When I visit the shopping cart page
 		And I remove an item from my cart
 		Then my cart should have no items
-		And I should see a "Continue Shopping" link
+		And I should see a "Continue Shopping" button
 		
 	@javascript
 	Scenario: Form errors on Review
 		Given an existing state
+		Given an existing shipping method
 		Given an existing New York state
 		And an existing tax for zip code "10001"
 		And an existing item in my cart
@@ -42,8 +43,9 @@ Feature: Checkout
 		And the submit order button should be disabled
 		And the edit button should be disabled
 		
-	@javascript
+	@javascript @successful_ups_response
 	Scenario: Editing info after review
+		Given an existing shipping method
 		Given an existing state
 		And an existing New York state
 		And an existing tax for zip code "10001"
@@ -55,7 +57,7 @@ Feature: Checkout
 		And I fill in a valid billing address
 		And I fill in a valid credit card
 		And I press "Review"
-		And I press "Edit"
+		And I press "Edit Payment Info"
 		Then the review button should be enabled
 		And the submit order button should be disabled
 		
@@ -84,8 +86,9 @@ Feature: Checkout
 		And I press "Log in"
 		Then I should see sign in errors	
 		
-	@javascript
+	@javascript @successful_ups_response
 	Scenario: Signing up on the checkout page - Happy path
+		Given an existing shipping method
 		Given an existing state
 		Given an existing New York state
 		And an existing tax for zip code "10001"
@@ -109,8 +112,9 @@ Feature: Checkout
 		And I should receive an order confirmation email
 		And my guest cookie should be deleted
 		
-	@javascript
+	@javascript @successful_ups_response
 	Scenario: Logging in on the checkout page - Happy path
+		Given an existing shipping method
 		Given an existing state
 		And an existing New York state
 		And an existing user
@@ -132,8 +136,9 @@ Feature: Checkout
 		And I should receive an order confirmation email
 		And my guest cookie should be deleted
 		
-	@javascript
+	@javascript @successful_ups_response
 	Scenario: Checking out as a logged in user - Happy path
+		Given an existing shipping method
 		Given an existing state
 		And an existing New York state
 		And an existing tax for zip code "10001"
@@ -150,8 +155,9 @@ Feature: Checkout
 		And I submit my order
 		Then my order should be placed
 	
-	@javascript
+	@javascript @successful_ups_response
 	Scenario: Using a free shipping coupon
+		Given an existing shipping method
 		Given an existing state
 		And an existing free shipping coupon
 		And an existing New York state
@@ -167,8 +173,9 @@ Feature: Checkout
 		And I press "Review"
 		Then my shipping should be set to zero
 		
-	@javascript
+	@javascript @successful_ups_response
 	Scenario: Using a flat coupon
+		Given an existing shipping method
 		Given an existing state
 		And an existing flat coupon
 		And an existing New York state
@@ -184,8 +191,9 @@ Feature: Checkout
 		And I press "Review"
 		Then my subtotal should be discounted by a flat amount
 		
-	@javascript
+	@javascript @successful_ups_response
 	Scenario: Using a percentage coupon
+		Given an existing shipping method
 		Given an existing state
 		And an existing percentage coupon
 		And an existing New York state
@@ -203,6 +211,7 @@ Feature: Checkout
 		
 	@javascript
 	Scenario: Entering a bad coupon
+		Given an existing shipping method
 		Given an existing state
 		And an existing expired coupon that has a high minimum purchase amount
 		And an existing New York state
@@ -223,6 +232,7 @@ Feature: Checkout
 		
 	@javascript
 	Scenario: Entering gibberish in the coupon field
+		Given an existing shipping method
 		Given an existing state
 		And an existing New York state
 		And an existing tax for zip code "10001"

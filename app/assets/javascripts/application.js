@@ -38,6 +38,7 @@ $(function() {
 
 	$("#review_spinner").hide();
 	$("#submit_spinner").hide();
+	$(".savings_row").hide();
 
 
 	$("#edit_payment_info_button").on("click", function(e) {

@@ -19,19 +19,16 @@ class UpsShipping
     request = Net::HTTP::Post.new(uri.path, headers)
     request.body = xml_for_initial_request
 
-    begin
-      response = https.request(request)
-      shipment_confirm_response = Nokogiri::XML(response.body)
-      shipping_cost = shipment_confirm_response.xpath("//TotalCharges//MonetaryValue").text
-      if shipping_cost.blank?
-        return nil
-      else
-        return (shipping_cost.to_f + extra_cost).round(2)
-      end
-    rescue => error
-      Rails.logger.info "UPS Error => #{error}"
-      return ""
+    response = https.request(request)
+    shipment_confirm_response = Nokogiri::XML(response.body)
+    shipping_cost = shipment_confirm_response.xpath("//TotalCharges//MonetaryValue").text
+    puts "shipping_cost = #{shipping_cost}"
+    if shipping_cost.blank?
+      raise ArgumentError
+    else
+      return (shipping_cost.to_f + extra_cost).round(2)
     end
+
   end
 
   def extra_cost

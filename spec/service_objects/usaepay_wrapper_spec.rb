@@ -126,31 +126,48 @@ describe UsaepayWrapper do
   end
   
   describe "#authorize" do
+
+    context "the resultcode.to_s != 'A'" do
+      let(:order) { FactoryGirl.create(:order) }
+      let(:usaepay) { 
+        billing_address = FactoryGirl.create(:billing_address, order_id: order.id)
+        UsaepayWrapper.new(
+          credit_card_number: "4000300011112220",
+          credit_card_exp_mm: "09",
+          credit_card_exp_yyyy: "2014",
+          credit_card_cvv: "999",
+          order_id: order.id
+        )
+      }
     
-    let(:order) { FactoryGirl.create(:order) }
-    let(:usaepay) { 
-      billing_address = FactoryGirl.create(:billing_address, order_id: order.id)
-      UsaepayWrapper.new(
-        credit_card_number: "4111111111111111",
-        credit_card_exp_mm: "03",
-        credit_card_exp_yyyy: "2033",
-        credit_card_cvv: "123",
-        order_id: order.id
-      )
-    }
+      
+      it "returns false" do
+        VCR.use_cassette 'usaepay_wrapper/unsuccessful_response' do
+          expect(usaepay.authorize).to be_false
+        end
+      end
+    end
+
+    context "the resultcode.to_s == 'A'" do
+      let(:order) { FactoryGirl.create(:order) }
+      let(:usaepay) { 
+        billing_address = FactoryGirl.create(:billing_address, order_id: order.id)
+        UsaepayWrapper.new(
+          credit_card_number: "4111111111111111",
+          credit_card_exp_mm: "03",
+          credit_card_exp_yyyy: "2033",
+          credit_card_cvv: "123",
+          order_id: order.id
+        )
+      }
     
-    # context "the resultcode.to_s != 'A'" do
-    #   it "raises an error" do
-    #     expect(usaepay.authorize!).to raise_error
-    #   end
-    # end
-    # 
-    # context "the resultcode.to_s == 'A'" do 
-    #   it "returns nil" do
-    #     expect(usaepay.authorize!).to be_nil
-    #   end
-    # end
-    
+      
+      it "returns true" do
+        VCR.use_cassette 'usaepay_wrapper/successful_response' do
+          expect(usaepay.authorize).to be_true
+        end
+      end
+    end
     
   end
 

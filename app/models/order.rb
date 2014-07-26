@@ -82,6 +82,7 @@ class Order < ActiveRecord::Base
   end
   
   def calculate_coupon_discount
+    puts "here!!!!!"
     coupon.apply_discount(self) if coupon
   end
   

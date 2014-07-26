@@ -10,8 +10,15 @@ $(".payment_info_errors").empty();
 $(".payment_info :input").attr("disabled", true);
 $(".order_info :input").attr("disabled", false);
 // $(".order_fees_div").html("<%=j render partial: 'order_fees', locals: {order: @payment_info.order} %>");
-$(".cart_subtotal").html("<%= humanized_money_with_symbol @payment_info.order.subtotal %>")
-$(".cart_shipping").html("<%= humanized_money_with_symbol @payment_info.order.shipping %>")
-$(".cart_tax").html("<%= humanized_money_with_symbol @payment_info.order.tax %>")
-$(".cart_total").html("<%= humanized_money_with_symbol @payment_info.order.total %>")
+$(".cart_subtotal").html("<%= humanized_money_with_symbol @payment_info.order.subtotal %>");
+$(".cart_shipping").html("<%= humanized_money_with_symbol @payment_info.order.shipping %>");
+<% if !@payment_info.order.savings.blank? && @payment_info.order.savings != 0 %>
+$(".cart_savings").html("(-<%= humanized_money_with_symbol @payment_info.order.savings %>)");
+$(".savings_row").show();
+<% else %>
+$(".savings_row").hide();
+<% end %>
+
+$(".cart_tax").html("<%= humanized_money_with_symbol @payment_info.order.tax %>");
+$(".cart_total").html("<%= humanized_money_with_symbol @payment_info.order.total %>");
 <% end %>
