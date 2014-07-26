@@ -1,0 +1,109 @@
+
+
+    <div class="container main-container">
+        <div class="row">
+
+        	<!-- Slider -->
+        	<div class="col-lg-9 col-md-12">
+                <div class="slider">
+                    <ul class="bxslider">
+                        <li>
+													<%= link_to image_tag("Twins-In-A-Tent-515275.jpg"), root_path %>
+                        </li>
+                        <li>
+													<%= link_to image_tag("Beach-boy.jpg"), root_path %>
+                        </li>
+                        <li>
+													<%= link_to image_tag("Girl-playing-with-balls.jpg"), root_path %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Slider -->
+
+			<!-- Product Selection, visible only on large desktop -->
+            <div class="col-lg-3 visible-lg">
+                <div class="row text-center">
+                    <div class="col-lg-12 col-md-12 hero-feature">
+												<div class="thumbnail">
+													<% product = Product.last %>
+													<%= link_to product_path(product), class: "link-p first-p" do %>
+													<%= image_tag product.product_images.last.image_url %>
+													<% end %>
+												
+													<div class="caption prod-caption">
+														<h4><%= link_to product.name, product_path(product) %></h4>
+														<p><%= product.short_description %></p>
+														<p>
+															<div class="btn-group">
+																<%= form_tag add_to_cart_checkout_path, method: :post do %>
+																<%= hidden_field_tag "quantity", 1 %>
+																<%= hidden_field_tag "variant_id", product.variants.last.id %>
+																<%= submit_tag humanized_money_with_symbol(product.variants.last.price), class: "btn btn-default" %>
+						
+																<%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+																<i class="fa fa-shopping-cart"></i> Buy
+																<% end %>
+																<% end %>
+															</div>
+														</p>
+													</div>
+												</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Product Selection -->
+        </div>
+
+        <div class="row">
+        	<div class="col-lg-3 col-md-3 col-sm-12">
+
+        		<!-- Categories -->
+        		<%= render "shared/side_collections" %>
+						<!-- End Categories -->
+
+				<!-- Best Seller -->
+				<%= render "shared/best_seller" %>
+				<!-- End Best Seller -->
+
+        	</div>
+
+        	<div class="clearfix visible-sm"></div>
+
+			<!-- Featured -->
+        	<div class="col-lg-9 col-md-9 col-sm-12">
+        		<div class="col-lg-12 col-sm-12">
+            		<span class="title">FEATURED PRODUCTS</span>
+            	</div>
+							<% Product.limit(3).offset(3).each do |product| %>
+							<div class="col-lg-4 col-sm-4 hero-feature text-center">
+		            <%= render partial: "shared/product_thumbnail", locals: {product: product} %>
+							</div>
+							<% end %>
+        	</div>
+        	<!-- End Featured -->
+
+        	<div class="clearfix visible-sm"></div>
+
+			<!-- Adidas Category -->
+        	<div class="col-lg-9 col-md-9 col-sm-12">
+				<div class="col-lg-12 col-sm-12">
+            		<span class="title">NEW PRODUCTS</span>
+            	</div>
+							<% Product.order("created_at DESC").limit(3).each do |product| %>
+	            <div class="col-lg-4 col-sm-4 hero-feature text-center">
+	                
+										<%= render partial: "shared/product_thumbnail", locals: {product: product} %>
+									
+	            </div>
+								<% end %>
+
+			</div>
+			<!-- End Adidas Category -->
+
+        </div>
+	</div>
+
+	
+
+

@@ -1,0 +1,27 @@
+testing_server: &testing_server
+  confirm_url: https://wwwcie.ups.com/ups.app/xml/ShipConfirm
+  accept_url: https://wwwcie.ups.com/ups.app/xml/ShipAccept
+  user_id: edmundmai
+  password: D1amond!23
+  access_key: DCD7B412E83E6D8A
+  account_number: 8961A5
+  
+production:
+  confirm_url: https://onlinetools.ups.com/ups.app/xml/ShipConfirm
+  accept_url: https://onlinetools.ups.com/ups.app/xml/ShipAccept
+  user_id: edmundmai
+  password: D1amond!23
+  access_key: DCD7B412E83E6D8A
+  account_number: 8961A5
+  
+test:
+  <<: *testing_server
+
+development:
+  <<: *testing_server
+  
+staging:
+  <<: *testing_server
+  
+preview:
+  <<: *testing_server

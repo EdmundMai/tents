@@ -1,0 +1,17 @@
+$("#review_spinner").hide();
+<% if @payment_info.errors.present? %>
+$(".payment_info_errors").empty();
+<% @payment_info.errors.full_messages.each do |error_message| %>
+$(".payment_info_errors").append("<li><%= error_message %></li>");
+<% end %>	
+jQuery('html,body').animate({scrollTop:0},300);
+<% else %>
+$(".payment_info_errors").empty();
+$(".payment_info :input").attr("disabled", true);
+$(".order_info :input").attr("disabled", false);
+// $(".order_fees_div").html("<%=j render partial: 'order_fees', locals: {order: @payment_info.order} %>");
+$(".cart_subtotal").html("<%= humanized_money_with_symbol @payment_info.order.subtotal %>")
+$(".cart_shipping").html("<%= humanized_money_with_symbol @payment_info.order.shipping %>")
+$(".cart_tax").html("<%= humanized_money_with_symbol @payment_info.order.tax %>")
+$(".cart_total").html("<%= humanized_money_with_symbol @payment_info.order.total %>")
+<% end %>

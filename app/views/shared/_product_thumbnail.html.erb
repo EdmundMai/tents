@@ -1,0 +1,24 @@
+
+	<div class="thumbnail">
+		<%= link_to product_path(product), class: "link-p" do %>
+		<%= image_tag product.product_images.last.image_url %>
+		<% end %>
+												
+		<div class="caption prod-caption">
+			<h4><%= link_to product.name, product_path(product) %></h4>
+			<p><%= product.short_description %></p>
+			<p>
+				<div class="btn-group">
+					<%= form_tag add_to_cart_checkout_path, method: :post do %>
+					<%= hidden_field_tag "quantity", 1 %>
+					<%= hidden_field_tag "variant_id", product.variants.last.id %>
+					<%= submit_tag humanized_money_with_symbol(product.variants.last.price), class: "btn btn-default" %>
+						
+					<%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+					<i class="fa fa-shopping-cart"></i> Buy
+					<% end %>
+					<% end %>
+				</div>
+			</p>
+		</div>
+	</div>
