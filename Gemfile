@@ -48,6 +48,7 @@ gem 'ransack'
 
 gem 'prawn_rails'
 
+gem 'nokogiri'
 
 group :development do
   gem 'capistrano'

@@ -3,6 +3,6 @@ class OrderMailer < ActionMailer::Base
   
   def confirmation_email(order)
     @order = order
-    mail(to: order.user.email)
+    mail(to: order.user.email, subject: "Thank you for shopping at Toddler Tents!")
   end
 end

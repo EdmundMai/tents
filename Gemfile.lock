@@ -295,6 +295,7 @@ DEPENDENCIES
   money-rails
   mysql2
   nested_form
+  nokogiri
   prawn_rails
   rails (= 4.1.1)
   ransack
