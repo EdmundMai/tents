@@ -15,31 +15,31 @@
 select{border:1px solid #ddd;padding:3px}
 @font-face {
     font-family: 'open_sanscondensed_light';
-    src: url('OpenSans-CondLight-webfont.eot');
-    src: url('OpenSans-CondLight-webfont.eot?#iefix') format('embedded-opentype'),
-         url('OpenSans-CondLight-webfont.woff') format('woff'),
-         url('OpenSans-CondLight-webfont.ttf') format('truetype'),
-         url('OpenSans-CondLight-webfont.svg#open_sanscondensed_light') format('svg');
+    src: url(font-path('OpenSans-CondLight-webfont.eot'));
+    src: url(font-path('OpenSans-CondLight-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('OpenSans-CondLight-webfont.woff')) format('woff'),
+         url(font-path('OpenSans-CondLight-webfont.ttf')) format('truetype'),
+         url(font-path('OpenSans-CondLight-webfont.svg#open_sanscondensed_light')) format('svg');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'source_sans_proregular';
-    src: url('sourcesanspro-regular-webfont.eot');
-    src: url('sourcesanspro-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('sourcesanspro-regular-webfont.woff') format('woff'),
-         url('sourcesanspro-regular-webfont.ttf') format('truetype'),
-         url('sourcesanspro-regular-webfont.svg#source_sans_proregular') format('svg');
+    src: url(font-path('sourcesanspro-regular-webfont.eot'));
+    src: url(font-path('sourcesanspro-regular-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('sourcesanspro-regular-webfont.woff')) format('woff'),
+         url(font-path('sourcesanspro-regular-webfont.ttf')) format('truetype'),
+         url(font-path('sourcesanspro-regular-webfont.svg#source_sans_proregular')) format('svg');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'DroidSansRegular';
-    src: url('DroidSans-webfont.eot');
-    src: url('DroidSans-webfont.eot?#iefix') format('embedded-opentype'),
-         url('DroidSans-webfont.woff') format('woff'),
-         url('DroidSans-webfont.ttf') format('truetype'),
-         url('DroidSans-webfont.svg#DroidSansRegular') format('svg');
+    src: url(font-path('DroidSans-webfont.eot'));
+    src: url(font-path('DroidSans-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('DroidSans-webfont.woff')) format('woff'),
+         url(font-path('DroidSans-webfont.ttf')) format('truetype'),
+         url(font-path('DroidSans-webfont.svg#DroidSansRegular')) format('svg');
     font-weight: normal;
     font-style: normal;
 }
