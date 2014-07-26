@@ -107,7 +107,7 @@
 					</table>
 					<div class="btn-group btns-cart">
 
-						<button type="button" class="btn btn-primary" onclick="window.location='products'"><i class="fa fa-arrow-circle-left"></i> Continue Shopping</button>
+						<button type="button" class="btn btn-primary" onclick="window.location='/'"><i class="fa fa-arrow-circle-left"></i> Continue Shopping</button>
 						<% unless current_or_guest_user.cart.cart_items.empty? %>
 						<%= submit_tag "Update Cart", class: "btn btn-primary" %>
 						<%= button_tag(type: 'submit', class: "btn btn-primary") do %>

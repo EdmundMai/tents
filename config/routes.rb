@@ -7,6 +7,11 @@ Rails.application.routes.draw do
     resources :returns, only: [:new, :create, :show]
   end
   
+  match 'about-us', to: "site#about_us", as: "about_us", via: [:get]
+  match 'privacy-policy', to: "site#privacy_policy", as: "privacy_policy", via: [:get]
+  match 'terms-and-conditions', to: "site#terms_and_conditions", as: "terms_and_conditions", via: [:get]
+  match 'contact-us', to: "site#contact_us", as: "contact_us", via: [:get]
+  match 'contact-form', to: "site#contact_form", as: "contact_form", via: [:post]
   
   
   
@@ -15,7 +20,7 @@ Rails.application.routes.draw do
   
   resources :collections, only: [:index, :show]
   
-  resources :products, only: [:index, :show]
+  resources :products, only: [:show]
   
   resources :cart_items, only: [:destroy]
   

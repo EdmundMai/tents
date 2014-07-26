@@ -1,4 +1,13 @@
 module ApplicationHelper
+  def flash_class(level)
+    case level
+      when 'notice' then "alert alert-info"
+      when 'success' then "alert alert-success"
+      when 'error' then "alert alert-danger"
+      when 'alert' then "alert alert-warning"
+    end
+  end
+  
   
   def vendor_options_with_extra_link_to_create_vendor(selected=nil)
     options = options_from_collection_for_select(Vendor.all, :id, :name, selected)
