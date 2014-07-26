@@ -20,7 +20,7 @@ development:
 staging:
   adapter: mysql2
   encoding: utf8
-	database: tents_staging
+  database: tents_staging
   reconnect: false
   pool: 5
   username: tent
@@ -37,7 +37,7 @@ test: &test
 production:
   adapter: mysql2
   encoding: utf8
-	database: tents_production
+  database: tents_production
   reconnect: false
   pool: 5
   username: tent
