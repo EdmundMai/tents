@@ -1,7 +1,7 @@
 
 <p>Dear <%= @order.billing_address.full_name %>,</p>
 <p>
-Thank you for placing an order at toddlertents.com! Your order will be shipped shortly. If you have any questions or concerns, please email us at customerservice@toddlertents.com and a representative will be at your service. Your order was placed on <%= @order.order_date.strftime("%m/%d/%Y") %> using the account <%= @order.user.email %>.
+Thank you for placing an order at toddlertents.com! Your order will be shipped shortly. If you have any questions or concerns, please email us at customerservice@toddlertents.com and a representative will be at your service. Your order was placed using the account <%= @order.user.email %>.
 </p>
 
 <p>
