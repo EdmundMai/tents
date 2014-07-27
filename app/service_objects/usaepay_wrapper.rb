@@ -12,8 +12,10 @@ class UsaepayWrapper
     # These credentials will differ between the sandbox and production accounts
     
     if Rails.env.production?
-      raise "make an account at paysimple"
-      transaction.usesandbox = false
+      # raise "make an account at paysimple"
+      @transaction.key="_yOvA59g2w29z89f5XxK497WH8HxWF00"
+      @transaction.pin="1234"
+      @transaction.usesandbox = false
     else
       @transaction.key="_yOvA59g2w29z89f5XxK497WH8HxWF00"
       @transaction.pin="1234"
