@@ -21,10 +21,11 @@ class UpsShipping
 
     response = https.request(request)
     shipment_confirm_response = Nokogiri::XML(response.body)
+    # puts "shipment_confirm_response = #{shipment_confirm_response}"
     shipping_cost = shipment_confirm_response.xpath("//TotalCharges//MonetaryValue").text
-    puts "shipping_cost = #{shipping_cost}"
+    # puts "shipping_cost = #{shipping_cost}"
     if shipping_cost.blank?
-      raise ArgumentError
+      raise ArgumentError unless Rails.env.test?
     else
       return (shipping_cost.to_f + extra_cost).round(2)
     end

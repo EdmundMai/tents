@@ -154,10 +154,14 @@ describe Order do
   end
   
   describe "#calculate_shipping" do
-    it "sets the shipping_cost to 0" do
-      order = Order.new
-      order.calculate_shipping
-      expect(order.shipping).to eq(Money.new(0, "USD"))
+    it "sets calls request_shipping_rate on UpsShippingQuote" do
+      # VCR.use_cassette 'ups/successful_response' do
+        FactoryGirl.create(:ups_ground)
+        order = FactoryGirl.create(:in_progress_order)
+        order.user.cart.cart_items << FactoryGirl.create(:cart_item, cart_id: order.user.cart.id)
+        UpsShippingQuote.any_instance.should_receive(:request_shipping_rate)
+        order.calculate_shipping
+      # end
     end
   end
   

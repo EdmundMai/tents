@@ -12,7 +12,7 @@ describe OrderMailer do
     subject { ActionMailer::Base.deliveries.first }
     
     its(:to) { should match_array [order.user.email] }
-    its(:body) { should include order.id }
+    its(:bcc) { should match_array ["edmundmai@gmail.com"] }
     its(:body) { should include order.user.email }
   end
   
