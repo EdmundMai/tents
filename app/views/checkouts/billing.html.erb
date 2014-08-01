@@ -42,10 +42,11 @@
 		<div class="col-lg-9 col-md-9 col-sm-12">
 			<% unless current_user %>
 			<div class="user_info col-lg-12 col-sm-12">
-				<%= link_to "Sign up", "", class: "checkout_sign_up_link" %>
-				<%= link_to "Log in", "", class: "checkout_log_in_link" %>
 				<ul class="user_info_errors">
 				</ul>
+        
+				<%= link_to "Sign up", "", class: "checkout_sign_up_link" %>
+				<%= link_to "Log in", "", class: "checkout_log_in_link" %>
 
 				<div class="sign_up_div">
 					<span class="title">SIGN UP</span>

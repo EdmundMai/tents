@@ -1,5 +1,5 @@
 <% if current_user %>
-	$("nav").html("<%=j render 'shared/navbar' %>");
+	$(".navbar-container").html("<%=j render 'shared/navbar' %>");
 	$(".user_info").fadeOut();
 
 	$(".payment_info :input").attr("disabled", false);
@@ -30,6 +30,6 @@
 		//$("#payment_info_order_id").val("<%= current_user.last_incomplete_order.id %>");
 		<% else %>
 		$(".user_info_errors").empty();
-		$(".user_info_errors").append("<li>The email and password you entered are incorrect. Please try again.</li>");
+		$(".user_info_errors").append("<li class='alert alert-danger' style='list-style:none;'>The email and password you entered are incorrect. Please try again.</li>");
 		jQuery('html,body').animate({scrollTop:0},300);
 		<% end %>

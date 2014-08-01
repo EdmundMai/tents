@@ -2,7 +2,7 @@ $("#review_spinner").hide();
 <% if @payment_info.errors.present? %>
 $(".payment_info_errors").empty();
 <% @payment_info.errors.full_messages.each do |error_message| %>
-$(".payment_info_errors").append("<li><%= error_message %></li>");
+$(".payment_info_errors").append("<li class='alert alert-danger' style='list-style:none;'><%= error_message %></li>");
 <% end %>	
 jQuery('html,body').animate({scrollTop:0},300);
 <% else %>

@@ -3,7 +3,7 @@ $(".payment_info :input").attr("disabled", false);
 $(".order_info :input").attr("disabled", true);
 
 $(".payment_info_errors").empty();
-$(".payment_info_errors").append("<li><%= @failure_message %></li>");
+$(".payment_info_errors").append("<li class='alert alert-danger' style='list-style:none;'><%= @failure_message %></li>");
 
 
 jQuery('html,body').animate({scrollTop:0},300);
