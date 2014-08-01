@@ -89,16 +89,52 @@ class CheckoutsController < ApplicationController
   
   def submit_order
     order = current_user.last_incomplete_order
-    @usaepay = UsaepayWrapper.new(params[:credit_card].merge(order_id: order.id))
-    if @usaepay.authorize
+    
+    if Rails.env.production?
+      Stripe.api_key = "sk_live_4UhkWxKAA9P0anoQrJ48YOdO"
+    else
+      Stripe.api_key = "sk_test_4UhkKvTnqQ2xNjcaVUYN8TT7"
+    end
+    
+    begin
+      @stripe = Stripe::Charge.create(amount: order.total.cents,
+                                    currency: "usd",
+                                    card: {
+                                      number: params[:credit_card][:credit_card_number],
+                                      exp_month: params[:credit_card][:credit_card_exp_mm],
+                                      exp_year: params[:credit_card][:credit_card_exp_yyyy],
+                                      cvc: params[:credit_card][:credit_card_cvv],
+                                      address_line1: order.billing_address.street_address,
+                                      address_line2: order.billing_address.street_address2,
+                                      address_city: order.billing_address.city,
+                                      address_state: order.billing_address.state.long_name,
+                                      address_zip: order.billing_address.zip_code,
+                                      address_country: "US"
+                                    },
+                                    description: "#{order.user.email} -- Order ID: #{order.id}"
+                                    )
       order.finalize!
       delete_sensitive_session_variables!
       render js: "window.location = '#{review_checkout_path}'"
-    else
+    rescue Stripe::CardError => e
+      logger.info "Stripe Error: #{e.inspect}"
+      @failure_message = e.message
       respond_to do |format|
         format.js
       end
     end
+    
+    
+    # @usaepay = UsaepayWrapper.new(params[:credit_card].merge(order_id: order.id))
+    # if @stripe.paid #@usaepay.authorize
+    #   order.finalize!
+    #   delete_sensitive_session_variables!
+    #   render js: "window.location = '#{review_checkout_path}'"
+    # else
+    #   respond_to do |format|
+    #     format.js
+    #   end
+    # end
   end
   
   def login_user

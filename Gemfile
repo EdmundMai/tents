@@ -50,6 +50,8 @@ gem 'prawn_rails'
 
 gem 'nokogiri'
 
+gem 'stripe'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-rails'
