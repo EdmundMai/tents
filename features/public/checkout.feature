@@ -86,7 +86,7 @@ Feature: Checkout
 		And I press "Log in"
 		Then I should see sign in errors	
 		
-	@javascript @successful_usaepay_and_ups_response
+	@javascript @successful_stripe_and_ups_response
 	Scenario: Signing up on the checkout page - Happy path
 		Given an existing shipping method
 		Given an existing state
@@ -112,7 +112,7 @@ Feature: Checkout
 		And I should receive an order confirmation email
 		And my guest cookie should be deleted
 		
-	@javascript @successful_usaepay_and_ups_response
+	@javascript @successful_stripe_and_ups_response
 	Scenario: Logging in on the checkout page - Happy path
 		Given an existing shipping method
 		Given an existing state
@@ -136,7 +136,7 @@ Feature: Checkout
 		And I should receive an order confirmation email
 		And my guest cookie should be deleted
 		
-	@javascript @successful_usaepay_and_ups_response
+	@javascript @successful_stripe_and_ups_response
 	Scenario: Checking out as a logged in user - Happy path
 		Given an existing shipping method
 		Given an existing state

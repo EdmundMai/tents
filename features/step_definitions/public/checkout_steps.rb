@@ -143,8 +143,9 @@ When(/^I press "(.*?)"$/) do |button_text|
 end
 
 When(/^I submit my order$/) do
+  sleep 5
   click_button("Submit Order")
-  sleep 2
+  sleep 10
 end
 
 Then(/^the review button should be enabled$/) do
