@@ -114,7 +114,7 @@
                     
 										<% Collection.all.each do |collection| %>
 											<li>
-												<%= link_to "#{collection.name} Tents", collection_path(collection) %>
+												<%= link_to collection.name, collection_path(collection) %>
 											</li>
 										<% end %>
 										<li><%= link_to "About Us", about_us_path %></li>
