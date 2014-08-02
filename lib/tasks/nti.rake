@@ -26,4 +26,17 @@ namespace :nti do
     end
   end
   
+  task(:populate_states => :environment) do
+    require 'csv'
+    CSV.open("#{Rails.root}/state_table.csv").each do |line|
+      state = State.new
+      state.long_name = line[0]
+      state.short_name = line[1]
+      unless State.exists?(short_name: state.short_name)
+        state.save!
+        puts "#{state.long_name} was created."
+      end
+    end
+  end
+  
 end
