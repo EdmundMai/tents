@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :collection do
-    name "MyString"
+    sequence(:name) { |n| "collName#{n}"}
     short_description "MyText"
     long_description "MyText"
     active false

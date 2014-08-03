@@ -39,4 +39,10 @@ namespace :nti do
     end
   end
   
+  task(:set_permalinks => :environment) do
+    Product.find_each(&:save)
+    Collection.find_each(&:save)
+  end
+  
+  
 end

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Toddler Tents</title>
+	<title>
+		<% if content_for?(:title) %>
+			Toddler Tents - <%= content_for(:title) %>
+		<% else %>
+			Toddler Tents
+		<% end %>
+	</title>
+  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -185,7 +192,7 @@
         	</div> -->
         </div>
         <div class="navbar-inverse text-center copyright">
-        	Copyright &copy; 2013 Mimity All right reserved
+        	Copyright &copy; 2014 Toddler Tents All rights reserved
         </div>
     </footer>
 

@@ -5,11 +5,11 @@ class Admin::ProductsController < Admin::BaseController
   end
   
   def edit
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
   end
   
   def update
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
     if @product.update_attributes(product_params)
       redirect_to edit_admin_product_path(@product), notice: "Your product was successfully updated."
     else
@@ -69,14 +69,14 @@ class Admin::ProductsController < Admin::BaseController
   end
   
   def destroy
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
     @product.destroy
     redirect_to admin_products_path, notice: "Your product was successfully deleted."
   end
   
   
   def add_variant
-    @product = Product.find(params[:product_id])
+    @product = Product.friendly.find(params[:product_id])
     respond_to do |format|
       format.js
     end

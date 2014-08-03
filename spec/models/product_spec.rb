@@ -11,6 +11,7 @@ describe Product do
   its(:attributes) { should include("shape_id") }
   its(:attributes) { should include("material_id") }
   its(:attributes) { should include("taxable") }
+  its(:attributes) { should include("slug") }
   
   it { should belong_to(:vendor) }
   it { should belong_to(:shape) }
@@ -25,5 +26,7 @@ describe Product do
   
   it { should have_many(:collections_products).dependent(:destroy) }
   it { should have_many(:collections).through(:collections_products) }
+  
+  it { should validate_uniqueness_of(:name) }
   
 end

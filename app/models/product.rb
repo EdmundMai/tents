@@ -1,4 +1,7 @@
 class Product < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+  
   default_scope { order('name ASC') }
   
   belongs_to :vendor
@@ -14,6 +17,8 @@ class Product < ActiveRecord::Base
   has_many :collections, through: :collections_products
   
   accepts_nested_attributes_for :products_colors, :allow_destroy => true
+  
+  validates_uniqueness_of :name
   
   def products_colors_attributes=(attrs)
     if self.new_record?

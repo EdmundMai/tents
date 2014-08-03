@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
   
   def show
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
   end
   
   def index

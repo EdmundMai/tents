@@ -1,10 +1,12 @@
 Given(/^I am an authenticated admin user$/) do
   user = FactoryGirl.create(:admin_user)
   visit new_user_session_path
-  fill_in("user[email]", with: user.email)
-  fill_in("user[password]", with: "test123")
-  check("user[remember_me]")
-  click_button("Sign in")
+  within(".login_div") do
+    fill_in("user[email]", with: user.email)
+    fill_in("user[password]", with: "test123")
+    check("user[remember_me]")
+    click_button("Sign in")
+  end
 end
 
 When(/^I visit the admin homepage$/) do

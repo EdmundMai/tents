@@ -9,7 +9,7 @@ class Admin::CollectionsController < Admin::BaseController
   end
   
   def manage_products
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
   end
   
   def create
@@ -22,13 +22,13 @@ class Admin::CollectionsController < Admin::BaseController
   end
   
   def edit
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
     @search = Product.search(params[:q])
     @products = @search.result.order('name ASC').paginate(:page => params[:page], :per_page => 10)
   end
   
   def update
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
     if @collection.update_attributes(collection_params)
       redirect_to edit_admin_collection_path(@collection), notice: "Your collection was successfully updated."
     else
@@ -38,7 +38,7 @@ class Admin::CollectionsController < Admin::BaseController
   
   def add_products
     return unless params[:product_ids].present?
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
     params[:product_ids].each do |product_id|
       product = Product.find(product_id)
       @collection.products << product unless @collection.products.include?(product)
@@ -50,7 +50,7 @@ class Admin::CollectionsController < Admin::BaseController
   
   def remove_products
     return unless params[:product_ids].present?
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
     params[:product_ids].each do |product_id|
       association = CollectionsProduct.find_by(product_id: product_id, collection_id: @collection.id)
       association.destroy
@@ -61,7 +61,7 @@ class Admin::CollectionsController < Admin::BaseController
   end
   
   def search_products
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
     @products = Product.where("name LIKE ?", "%#{params[:search_term]}%")
     respond_to do |format|
       format.js
@@ -69,14 +69,14 @@ class Admin::CollectionsController < Admin::BaseController
   end
   
   def reset_search
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
     respond_to do |format|
       format.js
     end
   end
   
   def destroy
-    @collection = Collection.find(params[:id])
+    @collection = Collection.friendly.find(params[:id])
     @collection.destroy
     redirect_to admin_collections_path, notice: "Your collection was successfully deleted."
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720181302) do
+ActiveRecord::Schema.define(version: 20140803045036) do
 
   create_table "addresses", force: true do |t|
     t.string   "first_name"
@@ -55,7 +55,10 @@ ActiveRecord::Schema.define(version: 20140720181302) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "collections", ["slug"], name: "index_collections_on_slug", using: :btree
 
   create_table "collections_products", force: true do |t|
     t.integer  "collection_id"
@@ -142,7 +145,10 @@ ActiveRecord::Schema.define(version: 20140720181302) do
     t.integer  "material_id"
     t.integer  "category_id"
     t.boolean  "taxable"
+    t.string   "slug"
   end
+
+  add_index "products", ["slug"], name: "index_products_on_slug", using: :btree
 
   create_table "products_colors", force: true do |t|
     t.integer  "color_id"
