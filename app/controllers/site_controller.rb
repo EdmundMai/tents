@@ -1,6 +1,8 @@
 class SiteController < ApplicationController
   def index
     # raise
+    @adventure_collection = Collection.find_by(name: "Adventure") || Collection.first
+    @playhouse_collection = Collection.find_by(name: "Playhouse") || Collection.last
   end
   
   def about_us
