@@ -59,7 +59,7 @@
 						<a class="addthis_button_preferred_4"></a>
 						<a class="addthis_button_compact"></a>
 					</div>
-					<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-4f0c254f1302adf8"></script>
+					<script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-4f0c254f1302adf8"></script>
 	            </div>
 	            <div class="clearfix"></div>
 						</div>
@@ -68,7 +68,7 @@
             		<span class="title">RELATED PRODUCTS</span>
             	</div>
 
-							<% (@product.collections.first.products - [@product]).each do |product| %>
+							<% (@product.collections.first.products - [@product])[0..2].compact.each do |product| %>
             	<div class="col-lg-4 col-sm-4 hero-feature text-center">
 	                <%= render partial: "shared/product_thumbnail", locals: {product: product} %>
 	            </div>
