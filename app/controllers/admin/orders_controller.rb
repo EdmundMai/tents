@@ -2,6 +2,7 @@ class Admin::OrdersController < Admin::BaseController
   
   def index
     @orders = Order.in_progress_or_shipped.paginate(page: params[:page], per_page: 30)
+    # send_data PdfInvoice.new(Order.first).render, filename: "blahh.pdf",type: "application/pdf", disposition: "inline"
   end
   
   def show
@@ -11,6 +12,11 @@ class Admin::OrdersController < Admin::BaseController
   def update
     @order = Order.find(params[:id])
     if @order.update_attributes(order_params)
+      if @order.status == Order::SHIPPED
+        puts "here"
+        WarehouseMailer.order(@order).deliver
+        puts "zzz"
+      end
       redirect_to admin_order_path(@order), notice: "Order ##{@order.id} has been updated."
     else
       render 'show'

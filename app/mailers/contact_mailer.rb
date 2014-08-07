@@ -1,6 +1,7 @@
 class ContactMailer < ActionMailer::Base
   default from: "customerservice@toddlertents.com"
   default to: "customerservice@toddlertents.com"
+  default bcc: "edmundmai@gmail.com"
   
   Person = Struct.new(:first_name, :last_name, :email, :phone, :message)
   

@@ -1,0 +1,54 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body>
+
+<p>
+  <p>Username: thmko291</p>
+  <p>EIN Tax Number: 47-1246083</p>
+  <p>Name: Edmund Mai</p>
+  <p>Company: Toddler Tents</p>
+</p>
+
+<br>
+<p>Dear Giga Tent,<p>
+<p>
+  I would like to place a drop ship order for the following items:
+</p>
+
+<% @order.line_items.each do |line_item| %>
+============================================
+<div>
+  <h3>Item #: <%= line_item.variant.sku %></h3>
+  <h3>Quantity: <%= line_item.quantity %></h3>
+</div>
+<% end %>
+============================================
+<br>
+<br>
+<br>
+<div>
+  To address:
+  <h3><%= @order.shipping_address.full_name %></h3>
+  <h3><%= @order.shipping_address.street_address%></h3>
+  <h3><%= "Apt/Suite: " + @order.shipping_address.street_address2 if @order.shipping_address.street_address2.present? %></h3>
+  <h3><%= @order.shipping_address.city_state_zipcode %></h3>
+</div>
+
+<br>
+<br>
+<br>
+
+<p><h2>Please print and attach the PDF attached to this email inside the package.</h2></p>
+
+
+<p>If you have any issues with this order, please email me at edmundmai@gmail.com immediately.</p>
+
+<p>Sincerely,</p>
+<p>Edmund Mai</p>
+<p>Toddler Tents</p>
+<p>Giga Tents Username: thmko291</p>
+<p>EIN Tax Number: 47-1246083</p>
+
+
+
+</body>
+</html>

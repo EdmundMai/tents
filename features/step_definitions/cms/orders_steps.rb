@@ -93,3 +93,11 @@ end
 Then(/^I should receive a CSV file$/) do
   page.response_headers['Content-Disposition'].should include("orders_report_from_#{Date.yesterday}_to_#{Date.tomorrow}.csv")
 end
+
+Then(/^a warehouse email should be sent$/) do
+  expect(ActionMailer::Base.deliveries.count).to eq(1)
+  
+  warehouse_email = ActionMailer::Base.deliveries.first
+  
+  expect(warehouse_email.to).to match_array ['edmundmai@gmail.com']
+end

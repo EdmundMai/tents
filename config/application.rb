@@ -27,4 +27,4 @@ module ToddlerTents
   end
 end
 
-LOGO_IMAGE_PATH = "#{Rails.root}/public/logo.png"
+LOGO_IMAGE_PATH = "#{Rails.root}/public/images/tents-logo.png"

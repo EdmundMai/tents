@@ -21,6 +21,7 @@ Feature: Orders CMS
 		When I visit the admin order show page
 		And I update the order status to "Shipped"
 		Then that order's status should be marked as "Shipped"
+    And a warehouse email should be sent
 	
 	Scenario: Exporting orders to a CSV file
 		Given existing orders in progress
