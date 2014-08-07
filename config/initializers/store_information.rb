@@ -1,10 +1,10 @@
 STORE_ADDRESS = {
-  name: "Store Name",
-  street_address: "123 Fake Street",
-  street_address2: "Suite 1",
-  city_state_zipcode: "New York, NY 10001",
-  phone_number: "(123) 456 - 7890",
-  fax_number: "(123) 456 - 7890"
+  name: "Toddler Tents",
+  street_address: "58 Elizabeth Street",
+  street_address2: "Apt 18",
+  city_state_zipcode: "New York, NY 10013",
+  phone_number: "(646) 207 - 0246",
+  fax_number: "(646) 207 - 0246"
 }
 
 UPS_SERVICE_DESCRIPTIONS = {
@@ -35,9 +35,9 @@ UPS_SERVICE_DESCRIPTIONS = {
 
 
 WAREHOUSE_ADDRESS = {
-  "AddressLine1" => "1200 County Road, Route 523",
-  "City" => "Flemington",
+  "AddressLine1" => "55 Haul Road",
+  "City" => "Wayne",
   "StateProvinceCode" => "NJ",
   "CountryCode" => "US",
-  "PostalCode" => "08822"
+  "PostalCode" => "07470 "
 }
