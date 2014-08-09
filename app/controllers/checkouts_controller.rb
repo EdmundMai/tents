@@ -113,11 +113,17 @@ class CheckoutsController < ApplicationController
                                     },
                                     description: "#{order.user.email} -- Order ID: #{order.id}"
                                     )
-                                    puts "zzzfff"
-                                    puts @stripe.inspect
-      order.finalize!
-      delete_sensitive_session_variables!
-      render js: "window.location = '#{review_checkout_path}'"
+      if @stripe.paid && @stripe.card.cvc_check == "pass" && @stripe.card.address_zip_check == "pass"
+        order.finalize!
+        delete_sensitive_session_variables!
+        render js: "window.location = '#{review_checkout_path}'"
+      else
+        logger.info "@stripe: #{@stripe.inspect}"
+        @failure_message = "Please check that your address and credit card information match."
+        respond_to do |format|
+          format.js
+        end
+      end
     rescue Stripe::CardError => e
       logger.info "Stripe Error: #{e.inspect}"
       @failure_message = e.message
