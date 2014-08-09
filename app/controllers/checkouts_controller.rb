@@ -113,6 +113,8 @@ class CheckoutsController < ApplicationController
                                     },
                                     description: "#{order.user.email} -- Order ID: #{order.id}"
                                     )
+                                    puts "zzzfff"
+                                    puts @stripe.inspect
       order.finalize!
       delete_sensitive_session_variables!
       render js: "window.location = '#{review_checkout_path}'"
