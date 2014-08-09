@@ -16,7 +16,9 @@ class ReturnsController < ApplicationController
       redirect_to order_return_path(@return.order, @return), notice: "Your return was successfully submitted."
     else
       @return.order.line_items.each do |line_item|
-        @return.return_items.build(line_item_id: line_item.id)
+        unless @return.return_items.map(&:line_item_id).include?(line_item.id)
+          @return.return_items.build(line_item_id: line_item.id) 
+        end
       end
       render 'new'
     end

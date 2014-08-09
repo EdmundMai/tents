@@ -42,11 +42,12 @@ class ApplicationController < ActionController::Base
   end
   
   def anonymous_user?
-    cookies.signed[:guest_user_id].blank? && cookies.signed[:auth_token].blank? && !current_user
+    cookies.signed[:guest_user_id].blank? && cookies.signed[:auth_token].blank? #&& !current_user
   end
   
   def login_process
-    if !anonymous_user?
+    old_user = nil
+    if !anonymous_user? && !current_user
       old_user = guest_user
     end
     yield

@@ -64,7 +64,6 @@ Then(/^I should see all of my order's information$/) do
   expect(order.line_items.count).not_to be == 0
   order.line_items.each do |line_item|
     expect(page).to have_content(line_item.variant.size.name)
-    expect(page).to have_content(line_item.variant.sku)
     expect(page).to have_content(line_item.variant.product.name)
     expect(page).to have_content(line_item.variant.products_color.color.name)
     expect(page).to have_content(line_item.quantity)

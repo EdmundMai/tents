@@ -67,7 +67,7 @@
 																<% if anonymous_user? %>
 																	0 items
 																<% else %>
-																	<%= pluralize current_or_guest_user.cart.cart_items.count, "items" %>
+																	<%= pluralize current_or_guest_user.cart.cart_items.count, "item" %>
 																<% end %>
 															</span>
 	                            <span class="pull-right"><i class="fa fa-caret-down"></i></span>

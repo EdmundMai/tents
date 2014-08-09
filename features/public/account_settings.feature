@@ -5,6 +5,7 @@ Feature: Account settings
 		Then I should be redirected to the sign in page
 
 	Scenario: Viewing my account settings
+		Given an existing complete product
 		Given I am an authenticated customer
 		When I visit my account settings
 		Then I should see my account settings
@@ -14,6 +15,7 @@ Feature: Account settings
 		Then I should be redirected to the sign in page
 
 	Scenario: Editing my email and password
+		Given an existing complete product
 		Given I am an authenticated customer
 		When I visit my account settings
 		And I click "Edit Account"
@@ -52,6 +54,7 @@ Feature: Account settings
 		
 	@javascript
 	Scenario: Placing a return
+		Given an existing complete product
 		Given I am an authenticated customer
 		And existing past orders
 		When I visit my account settings
@@ -62,7 +65,7 @@ Feature: Account settings
 		And I press "Create Return"
 		Then my return should be placed
 		And I should be on the return show page
-		When I click "View Return Slip"
+		When I click "Print Return Slip"
 		Then I should see a return invoice slip
 		
 	Scenario: Viewing an individual past return without logging in

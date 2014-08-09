@@ -41,14 +41,14 @@ prawn_document() do |pdf|
 
 	
 	pdf.float {
-		pdf.image "#{LOGO_IMAGE_PATH}", width: 100, height: 50, position: :left
+		pdf.image "#{LOGO_IMAGE_PATH}", width: 200, height: 100, position: :left
 		
 	}
 	pdf.text "Return Slip", align: :center, size: 20, position: :center
 		
 	
 
-	pdf.move_down(30)
+	pdf.move_down(100)
 	
   
 	

@@ -49,7 +49,9 @@ end
 
 When(/^I click on my last past order$/) do
   user = User.last
-  click_link(user.last_complete_order.id.to_s)
+  within(".past_orders_table") do
+    click_link(user.last_complete_order.id.to_s)
+  end
 end
 
 When(/^I fill out the form to create a return$/) do
@@ -166,10 +168,11 @@ end
 
 Given(/^an existing past order with no more returnable items$/) do
   user = User.last
-  order = FactoryGirl.create(:shipped_order, user_id: user.id)
+  order = FactoryGirl.create(:shipped_order, user: user)
   line_item = order.line_items.last
-  return_item = FactoryGirl.create(:return_item, line_item_id: line_item.id, quantity: line_item.quantity)
-  r = FactoryGirl.create(:return, order_id: order.id, return_items: [return_item])
+  return_item = FactoryGirl.create(:return_item, line_item: line_item, quantity: line_item.quantity)
+  r = FactoryGirl.create(:return, order: order, return_items: [return_item])
+  
 end
 
 Then(/^I should not see a link for creating a return$/) do

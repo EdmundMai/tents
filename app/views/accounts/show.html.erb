@@ -1,7 +1,31 @@
-<h1>
-	Account Settings
-</h1>
 
-<%= link_to "Edit Account", edit_user_registration_path %><br>
-<%= link_to "Order History", orders_path %>
 
+<div class="container main-container">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-12">
+
+			<!-- RECENT PRODUCT -->
+			<div class="col-lg-12 col-md-12 col-sm-12 visible-lg visible-md">
+				<%= render "shared/best_seller" %>
+			</div>
+			<!-- End RECENT PRODUCT -->
+
+		</div>
+
+		<div class="clearfix visible-sm"></div>
+
+		<!-- Cart -->
+		<div class="col-lg-9 col-md-9 col-sm-12" style="height: 700px;">
+			<div class="col-lg-12 col-sm-12">
+				<h1>
+					Account Settings
+				</h1>
+
+				<h2><%= link_to "Edit Account", edit_user_registration_path %></h2>
+				<h2><%= link_to "Order History", orders_path %></h2>
+				
+
+
+		</div>
+	</div>
+</div>

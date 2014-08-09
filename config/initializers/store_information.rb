@@ -1,8 +1,8 @@
 STORE_ADDRESS = {
-  name: "Toddler Tents",
-  street_address: "58 Elizabeth Street",
-  street_address2: "Suite 18",
-  city_state_zipcode: "New York, NY 10013",
+  name: "GigaTents",
+  street_address: "55 Haul Road",
+  street_address2: "Attention: Toddler Tents / thmko291",
+  city_state_zipcode: "Wayne, NJ 07470",
   phone_number: "(646) 207 - 0246",
   fax_number: "(646) 207 - 0246"
 }
