@@ -1,6 +1,7 @@
 class WarehouseMailer < ActionMailer::Base
   default from: "customerservice@toddlertents.com"
   default to: Rails.env.production? ? "sales@gigatent.com" : "edmundmai@gmail.com"
+  default bcc: "edmundmai@gmail.com"
   
   def order(order)
     @order = order
