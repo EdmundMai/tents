@@ -46,15 +46,16 @@ namespace :nti do
   
   task(:google_merchants_feed => :environment) do
     require 'csv'
-    CSV.open('products.csv', "wb", {:col_sep => "|"}) do |csv|
+    CSV.open('products.csv', "wb", {:col_sep => "\t"}) do |csv|
       csv << [
-        "ID",
-        "Name",
-        "Short Description",
-        "Long Description",
-        "Slug",
-        "Price",
-        "SKU"
+        "id",
+        "title",
+        "description",
+        "product type",
+        "link",
+        "mobile link",
+        "image link",
+        "price"
       ]
       
       Product.all.each do |product|
@@ -63,10 +64,11 @@ namespace :nti do
         data << variant.id
         data << product.name
         data << product.long_description
-        data << product.short_description
-        data << product.slug
+        data << "play tent"
+        data << "www.toddlertents.com/products/#{product.slug}"
+        data << "www.toddlertents.com/products/#{product.slug}"
+        data << "www.toddlertents.com#{product.product_images.last.image_url}"
         data << variant.price.to_s
-        data << variant.sku
         csv << data
       end
       
