@@ -19,6 +19,10 @@ class Order < ActiveRecord::Base
   
   scope :in_progress_or_shipped, -> { where(status: [Order::IN_PROGRESS, Order::SHIPPED]).order("order_date ASC") }
   
+  def po_number
+    1000 + id
+  end
+  
   def return_threshold_passed?
     return true if order_date.nil?
     

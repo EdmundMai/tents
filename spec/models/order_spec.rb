@@ -29,6 +29,14 @@ describe Order do
   
   it { should have_many(:line_items).dependent(:destroy) }
   
+  describe "po_number" do
+    it "returns 1000 + id number" do
+      order = Order.new
+      order.id = 1
+      expect(order.po_number).to eq(1001)
+    end
+  end
+  
   describe "#return_threshold_passed?" do
     context "the order_date was over a month ago" do
       it "returns true" do

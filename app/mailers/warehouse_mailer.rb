@@ -6,6 +6,6 @@ class WarehouseMailer < ActionMailer::Base
   def order(order)
     @order = order
     attachments["toddler_tents_order_#{order.id}.pdf"] = { :mime_type => 'application/pdf', :content => PdfInvoice.new(order).render } 
-    mail(subject: "Toddler Tents (username: thmko291) has placed an order.")
+    mail(subject: "Toddler Tents (username: thmko291) has placed an order. (PO#: #{@order.po_number} )")
   end
 end
