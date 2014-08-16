@@ -54,6 +54,8 @@ gem 'stripe'
 
 gem 'friendly_id', '~> 5.0.0'
 
+gem 'exception_notification'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-rails'

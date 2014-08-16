@@ -86,3 +86,10 @@ Rails.application.configure do
 end
 
 ActionMailer::Base.delivery_method = :sendmail
+
+ToddlerTents::Application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[Staging] ",
+    :sender_address => %{"Exception Notification" <notifier@toddlertents.com>},
+    :exception_recipients => %w{edmundmai@gmail.com}
+  }
