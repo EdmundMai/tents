@@ -44,5 +44,35 @@ namespace :nti do
     Collection.find_each(&:save)
   end
   
+  task(:google_merchants_feed => :environment) do
+    require 'csv'
+    CSV.open('products.csv', "wb") do |csv|
+      csv << [
+        "ID",
+        "Name",
+        "Short Description",
+        "Long Description",
+        "Slug",
+        "Price",
+        "SKU"
+      ]
+      
+      Product.all.each do |product|
+        data = []
+        variant = product.variants.last
+        data << variant.id
+        data << product.name
+        data << product.long_description
+        data << product.short_description
+        data << product.slug
+        data << variant.price.to_s
+        data << variant.sku
+        csv << data
+      end
+      
+    end
+    
+  end
+  
   
 end
