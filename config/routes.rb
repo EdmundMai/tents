@@ -115,6 +115,8 @@ Rails.application.routes.draw do
     resources :categories
   end
 
+  get 'test' => 'site#test'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

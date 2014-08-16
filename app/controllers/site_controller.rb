@@ -17,6 +17,10 @@ class SiteController < ApplicationController
   def contact_us
   end
   
+  def test
+    raise "boom"
+  end
+  
   def contact_form
     ContactMailer.form(params[:person]).deliver
     redirect_to root_path, notice: "Your contact form was submitted. We will reply to you within 3 business days."
