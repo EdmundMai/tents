@@ -65,9 +65,9 @@ namespace :nti do
         data << product.name
         data << product.long_description
         data << "play tent"
-        data << "www.toddlertents.com/products/#{product.slug}"
-        data << "www.toddlertents.com/products/#{product.slug}"
-        data << "www.toddlertents.com#{product.product_images.last.image_url}"
+        data << "https://www.toddlertents.com/products/#{product.slug}"
+        data << "https://www.toddlertents.com/products/#{product.slug}"
+        data << "https://www.toddlertents.com#{product.product_images.last.image_url}"
         data << variant.price.to_s
         csv << data
       end
