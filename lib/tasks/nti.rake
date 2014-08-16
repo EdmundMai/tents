@@ -46,7 +46,7 @@ namespace :nti do
   
   task(:google_merchants_feed => :environment) do
     require 'csv'
-    CSV.open('products.csv', "wb") do |csv|
+    CSV.open('products.csv', "wb", {:col_sep => "|"}) do |csv|
       csv << [
         "ID",
         "Name",
