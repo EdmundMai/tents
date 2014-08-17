@@ -55,7 +55,8 @@ namespace :nti do
         "link",
         "mobile link",
         "image link",
-        "price"
+        "price",
+        "condition",
       ]
       
       Product.all.each do |product|
@@ -69,6 +70,7 @@ namespace :nti do
         data << "https://www.toddlertents.com/products/#{product.slug}"
         data << "https://www.toddlertents.com#{product.product_images.last.image_url}"
         data << variant.price.to_s
+        data << "new"
         csv << data
       end
       
