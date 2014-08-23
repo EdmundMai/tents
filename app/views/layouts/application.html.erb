@@ -25,7 +25,7 @@
 	        <div class="row">
 
 	        	<!-- Logo -->
-	            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+	            <div class="col-lg-3 col-md-3 col-sm-6">
 	            	<div class="well logo">
 	            		<%= link_to root_path do %>
 										<%= image_tag "tents-logo.png", width: 300 %>
@@ -38,7 +38,7 @@
 	            <!-- End Logo -->
 
 				<!-- Search Form -->
-	            <div class="col-lg-6 col-md-5 col-sm-7 col-xs-12">
+	            <div class="col-lg-6 col-md-5 col-sm-7 hidden-sm hidden-xs">
 	            	<div class="well">
 	                    <form action="">
 	                        <div class="input-group">
@@ -116,7 +116,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- text logo on mobile view -->
-                <a class="navbar-brand visible-xs" href="index.html">Mimity Online Shop</a>
+								<%= link_to "Collections", collections_path, class: "navbar-brand visible-xs" %>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
@@ -127,7 +127,7 @@
 												Collections <span class="caret"></span>
 											</a>
 											<ul class="dropdown-menu">
-												<% Collection.all.each do |collection| %>
+												<% Collection.active.each do |collection| %>
 													<li>
 														<%= link_to collection.name, collection_path(collection) %>
 													</li>
