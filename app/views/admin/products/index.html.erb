@@ -6,7 +6,7 @@
 </div>
 
 <%= will_paginate @products %>
-
+<br>
 <% @products.each_with_index do |product, index| %>
 	<%= index+1 %>. <%= link_to product.name, edit_admin_product_path(product) %><br>
 <% end %>
