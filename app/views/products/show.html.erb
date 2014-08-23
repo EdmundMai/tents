@@ -1,5 +1,7 @@
-    <% content_for :title do %>
-			<%= @product.name %>
+    <% content_for :title, @product.name %>
+		
+		<% if @product.meta_description.present? %>
+	    <% content_for :meta_description, @product.meta_description %>
 		<% end %>
 		
 		<div class="container main-container">

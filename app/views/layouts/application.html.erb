@@ -15,7 +15,12 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
-	<meta name="description" content="Recreational tents for babies and adolescents, made for both indoor and outdoor enjoyment.">
+	<% if content_for?(:meta_description) %>
+		<meta name="description" content="<%= yield(:meta_description) %>">
+	<% else %>
+		<meta name="description" content="Recreational tents for babies and adolescents, made for both indoor and outdoor enjoyment.">
+	<% end %>
+	
 	<meta name="keywords" content="toddler, tents, tent, baby tents, play tents, kids tents">
 	
 </head>
