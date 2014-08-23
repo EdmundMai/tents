@@ -33,10 +33,17 @@
 					</div>
 					</div>
 					<div class="col-lg-6">
-					<h4><%= @product.name %></h4>
+					<h3><%= @product.name %></h3>
 
 					<hr/>
 					<%= @product.long_description %>
+					
+					<h4>Measurements</h4>
+					<%= @product.products_colors.try(:last).try(:variants).try(:last).try(:measurements) %>
+					
+					<h4>Recommended Age Group</h4>
+					<%= @product.age_group %>
+					
 					<hr/>
 					<h3><%= humanized_money_with_symbol @product.variants.last.price %></h3>
 					<% @product.products_colors.each do |pc| %>

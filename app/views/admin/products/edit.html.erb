@@ -26,6 +26,11 @@
 	</div>
 	
 	<div class="field">
+		<%= form.label :age_group %>
+		<%= form.text_field :age_group %>
+	</div>
+	
+	<div class="field">
 		<%= form.label :category_id, "Category" %>
 		<%= form.collection_select :category_id, Category.all, :id, :name %>
 	</div>

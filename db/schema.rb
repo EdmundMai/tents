@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140803045036) do
+ActiveRecord::Schema.define(version: 20140823164004) do
 
   create_table "addresses", force: true do |t|
     t.string   "first_name"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20140803045036) do
     t.integer  "category_id"
     t.boolean  "taxable"
     t.string   "slug"
+    t.string   "age_group"
   end
 
   add_index "products", ["slug"], name: "index_products_on_slug", using: :btree

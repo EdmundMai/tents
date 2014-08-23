@@ -90,6 +90,7 @@ class Admin::ProductsController < Admin::BaseController
                                       :long_description, 
                                       :active, 
                                       :meta_description, 
+                                      :age_group,
                                       :page_title,
                                       :taxable, 
                                       :vendor_id, 

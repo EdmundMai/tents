@@ -17,6 +17,12 @@
 //= require jquery.ui.all
 //= require turbolinks
 
+$(document).ready(function() {
+  $('[data-toggle=offcanvas]').click(function() {
+    $('.row-offcanvas').toggleClass('active');
+  });
+});
+
 $(document).on('keydown', '#new_shape_text_field', function(e) { 
 	if (e.keyCode == 13) {
 		var shape_name = $('#new_shape_text_field').val();

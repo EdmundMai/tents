@@ -7,16 +7,74 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<%= link_to "Homepage", root_path %>
-	<%= link_to "Dashboard", admin_path %>
-	<%= link_to "Log out", destroy_user_session_path, method: :delete %>
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	      <div class="container-fluid">
+	        <div class="navbar-header">
+						<%= link_to "Toddler Tents", admin_path, class: "navbar-brand" %>
+	        </div>
+	        <div class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	            <li><%= link_to "Dashboard", admin_path %></li>
+	            <li><%= link_to "Homepage", root_path %></li>
+	            <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+	          </ul>
+	        </div>
+	      </div>
+	</nav>
+	
+	
+	
+	<div class="container-fluid">
+      
+	      <div class="row row-offcanvas row-offcanvas-left">
+        
+	         <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+           
+	            <ul class="nav nav-sidebar">
+	              <li><%= link_to "Categories", admin_categories_path %></li>
+	              <li><%= link_to "Collections", admin_collections_path %></li>
+	              <li><%= link_to "Colors", admin_colors_path %></li>
+	              <li><%= link_to "Coupons", admin_coupons_path %></li>
+	              <li><%= link_to "Discounts", admin_discounts_path %></li>
+	              <li><%= link_to "Materials", admin_materials_path %></li>
+	              <li><%= link_to "Orders", admin_orders_path %></li>
+	              <li><%= link_to "Products", admin_products_path %></li>
+	              <li><%= link_to "Returns", admin_returns_path %></li>
+	              <li><%= link_to "Shapes", admin_shapes_path %></li>
+	              <li><%= link_to "Upload Files", admin_file_uploads_path %></li>
+	              <li><%= link_to "Vendors", admin_vendors_path %></li>
+	              <li></li>
+	              <li></li>
+	            </ul>
+						</div><!--/span-->
+        
+	        <div class="col-sm-9 col-md-10 main">
+          
+	          <!--toggle sidebar button-->
+	          <p class="visible-xs">
+	            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
+	          </p>
+
+						
+					  <p class="notice"><%= notice %></p>
+					  <p class="alert"><%= alert %></p>
+
+          	<%= yield %>
+	      </div><!--/row-->
+		</div>
+	</div><!--/.container-->
 
 	
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+	
+	
 	
 
-<%= yield %>
+	
+	
+	
+
+
 
 </body>
 </html>

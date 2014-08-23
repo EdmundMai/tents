@@ -12,6 +12,7 @@ describe Product do
   its(:attributes) { should include("material_id") }
   its(:attributes) { should include("taxable") }
   its(:attributes) { should include("slug") }
+  its(:attributes) { should include("age_group") }
   
   it { should belong_to(:vendor) }
   it { should belong_to(:shape) }

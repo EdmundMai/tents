@@ -87,6 +87,8 @@ When(/^I fill in the form to create a new product$/) do
   fill_in("product[long_description]", with: "Something")
   fill_in("product[page_title]", with: "My Page Title")
   fill_in("product[meta_description]", with: "My Meta Description")
+  fill_in("product[age_group]", with: "3-10 years old")
+  
   select(Vendor.last.name, from: "product[vendor_id]")
   select(Material.last.name, from: "product[material_id]")
   select(Shape.last.name, from: "product[shape_id]")
@@ -173,6 +175,7 @@ Then(/^my product should be saved$/) do
   expect(product.meta_description).to eq("My Meta Description")
   expect(product.active).to be_false
   expect(product.taxable).to be_true
+  expect(product.age_group).to eq("3-10 years old")
   
   expect(product.vendor).to eq Vendor.last
   expect(product.material).to eq Material.last
