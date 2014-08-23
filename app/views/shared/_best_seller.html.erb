@@ -3,9 +3,9 @@
 		<span class="title">BEST SELLERS</span>
 	</div>
 	<div class="hero-feature">
-		<%= render partial: "shared/product_thumbnail", locals: {product: Product.last} %>
+		<%= render partial: "shared/product_thumbnail", locals: {product: Product.find_by(name: "Lily The Lady Bug")} %>
 	</div>
 	<div class="hero-feature hidden-sm">
-		<%= render partial: "shared/product_thumbnail", locals: {product: Product.first} %>
+		<%= render partial: "shared/product_thumbnail", locals: {product: Product.find_by(name: "Queenie The Bee")} %>
 	</div>
 </div>
