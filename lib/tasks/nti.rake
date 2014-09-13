@@ -59,6 +59,7 @@ namespace :nti do
         "condition",
         "availability",
         "price",
+        "shipping weight",
         "identifier exists"
       ]
       
@@ -76,6 +77,7 @@ namespace :nti do
         data << "new"
         data << "in stock"
         data << variant.price.to_s
+        data << "#{variant.weight} lb"
         data << "FALSE"
         csv << data
       end
