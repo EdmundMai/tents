@@ -58,7 +58,7 @@
                                 </td> -->
                                 <!-- <td>-</td> -->
                                 <td>
-																	<%= text_field_tag "cart_items[#{cart_item.variant_id}]", cart_item.quantity, class: "input-qty form-control text-center" %>
+																	<%= text_field_tag "cart_items[#{cart_item.variant_id}]", cart_item.quantity, class: "form-control text-center" %>
                                     <!-- <input type="text" name="" value="1" class="input-qty form-control text-center" /> -->
                                 </td>
                                 <td class="price"><%= humanized_money_with_symbol(cart_item.variant.price) %></td>
@@ -105,7 +105,7 @@
                             <tr>
                                 <!-- <td colspan="6" align="right">Total</td> -->
                                 <td colspan="4" align="right">Total</td>
-                                <td class="total" colspan="2"><b><%= current_or_guest_user.cart.total %></b>
+                                <td class="total" colspan="2"><b><%= humanized_money_with_symbol current_or_guest_user.cart.total %></b>
                                 </td>
                             </tr>
                         </tbody>
@@ -113,20 +113,19 @@
 					</div>
 					<div class="btn-group btns-cart pull-left">
 
-						<button type="button" class="btn btn-primary" onclick="window.location='/'"><i class="fa fa-arrow-circle-left"></i> Continue Shopping</button>
+						<button type="button" class="btn btn-primary bottom-marg btn-sm" onclick="window.location='/'"><i class="fa fa-arrow-circle-left"></i> Continue Shopping</button>
+						<br class="visible-xs">
 						<br class="visible-xs">
 						
 						<% if current_or_guest_user.cart.cart_items.empty? %>
 						</div>
 						<% else %>
-						<%= submit_tag "Update Cart", class: "btn btn-primary" %>
+						<%= submit_tag "Update Cart", class: "btn btn-primary bottom-marg btn-sm" %>
 						</div>
 						<div class="btn-group btns-cart pull-right">
 						
-						<br class="visible-xs">
-						<br class="visible-xs">
 					
-						<%= button_tag(type: 'submit', class: "btn btn-success btn-lg") do %>
+						<%= button_tag(type: 'submit', class: "btn btn-success btn-lg bottom-marg") do %>
 						Checkout <i class="fa fa-arrow-circle-right"></i>
 						<br class="visible-xs">
 						</div>
