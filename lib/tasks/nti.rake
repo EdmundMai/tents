@@ -51,12 +51,15 @@ namespace :nti do
         "id",
         "title",
         "description",
+        "google product category",
         "product type",
         "link",
         "mobile link",
         "image link",
-        "price",
         "condition",
+        "availability",
+        "price",
+        "identifier exists",
       ]
       
       Product.all.each do |product|
@@ -65,12 +68,15 @@ namespace :nti do
         data << variant.id
         data << product.name
         data << product.long_description
-        data << "play tent"
+        data << "Baby & Toddler > Baby Toys > Baby Activity Toys"
+        data << "Baby & Toddler > Baby Toys > Baby Activity Toys"
         data << "https://www.toddlertents.com/products/#{product.slug}"
         data << "https://www.toddlertents.com/products/#{product.slug}"
         data << "https://www.toddlertents.com#{product.product_images.last.image_url}"
-        data << variant.price.to_s
         data << "new"
+        data << "in stock"
+        data << variant.price.to_s
+        data << "FALSE"
         csv << data
       end
       
