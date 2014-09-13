@@ -59,7 +59,7 @@ namespace :nti do
         "condition",
         "availability",
         "price",
-        "identifier exists",
+        "identifier exists"
       ]
       
       Product.all.each do |product|
