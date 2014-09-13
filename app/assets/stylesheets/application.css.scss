@@ -53,7 +53,7 @@ th {
 
 
 @media (max-width: 480px) {
-	.table > tbody > tr td {
+	.table.tbl-checkout > tbody > tr td {
 		display: inline-block;
         width: 100%
 	}
