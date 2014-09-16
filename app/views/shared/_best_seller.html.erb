@@ -3,9 +3,13 @@
 		<span class="title">BEST SELLERS</span>
 	</div>
 	<div class="hero-feature">
+		<% unless Rails.env.development? || Rails.env.test? %>
 		<%= render partial: "shared/product_thumbnail", locals: {product: Product.find_by(name: "Lily The Lady Bug")} %>
+		<% end %>
 	</div>
 	<div class="hero-feature hidden-sm">
+		<% unless Rails.env.development? || Rails.env.test? %>
 		<%= render partial: "shared/product_thumbnail", locals: {product: Product.find_by(name: "Queenie The Bee")} %>
+		<% end %>
 	</div>
 </div>
