@@ -9,15 +9,15 @@
 		<ul class="bxslider">
 		<li>
 		<%#= link_to image_tag("Twins-In-A-Tent-515275.jpg"), collection_path(@playhouse_collection) %>
-		<%= link_to image_tag("christmas_1.jpg", size: "930x600"), collection_path(@playhouse_collection) %>
+		<%= link_to image_tag("christmas_1.jpg"), collection_path(@playhouse_collection) %>
 		</li>
 		<li>
-		<%#= link_to image_tag("Beach-boy.jpg"), collection_path(@adventure_collection) %>
-		<%= link_to image_tag("christmas_2.jpg", size: "910x550"), collection_path(@adventure_collection) %>
+		<%= link_to image_tag("Beach-boy.jpg"), collection_path(@adventure_collection) %>
+		<%#= link_to image_tag("christmas_2.jpg"), collection_path(@adventure_collection) %>
 		</li>
-		<!--<li>
-		<%#= link_to image_tag("Girl-playing-with-balls.jpg"), collection_path(@playhouse_collection) %>
-		</li>-->
+		<li>
+		<%= link_to image_tag("Girl-playing-with-balls.jpg"), collection_path(@playhouse_collection) %>
+		</li>
 		</ul>
 		</div>
             </div>
