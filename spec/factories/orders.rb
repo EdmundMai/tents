@@ -7,7 +7,7 @@ FactoryGirl.define do
     shipping 2.53
     total 12.34
     user
-    
+
     factory :incomplete_order do
       status Order::INCOMPLETE
       shipping_address
@@ -17,7 +17,7 @@ FactoryGirl.define do
         order.line_items << FactoryGirl.create(:line_item)
       end
     end
-    
+
     factory :in_progress_order do
       status Order::IN_PROGRESS
       shipping_address
@@ -27,7 +27,7 @@ FactoryGirl.define do
         order.line_items << FactoryGirl.create(:line_item)
       end
     end
-    
+
     factory :shipped_order do
       order_date Date.today
       status Order::SHIPPED

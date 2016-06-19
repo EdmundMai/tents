@@ -55,7 +55,7 @@ end
 
 Then(/^my free shipping coupon should be saved$/) do
   expect(FreeShippingCoupon.count).to eq(1)
-  
+
   free_shipping_coupon = FreeShippingCoupon.last
   expect(free_shipping_coupon.name).to eq("Spring Sale")
   expect(free_shipping_coupon.type).to eq("FreeShippingCoupon")
@@ -80,7 +80,7 @@ end
 
 Then(/^my percentage coupon should be saved$/) do
   expect(PercentageCoupon.count).to eq(1)
-  
+
   percentage_coupon = PercentageCoupon.last
   expect(percentage_coupon.name).to eq("Summer Sale")
   expect(percentage_coupon.type).to eq("PercentageCoupon")
@@ -105,7 +105,7 @@ end
 
 Then(/^my flat coupon should be saved$/) do
   expect(FlatCoupon.count).to eq(1)
-  
+
   flat_coupon = FlatCoupon.last
   expect(flat_coupon.name).to eq("Fall Sale")
   expect(flat_coupon.type).to eq("FlatCoupon")

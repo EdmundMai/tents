@@ -60,7 +60,7 @@ Then(/^I should see all of my order's information$/) do
   expect(page).to have_content(order.billing_address.state.short_name)
   expect(page).to have_content(order.billing_address.zip_code)
   expect(page).to have_content(order.billing_address.phone_number)
-  
+
   expect(order.line_items.count).not_to be == 0
   order.line_items.each do |line_item|
     expect(page).to have_content(line_item.variant.size.name)
@@ -85,7 +85,7 @@ end
 When(/^I export my orders into a CSV file$/) do
   fill_in("from_date", with: Date.yesterday.strftime("%m/%d/%Y"))
   fill_in("to_date", with: Date.tomorrow.strftime("%m/%d/%Y"))
-  
+
   click_button("Download Report")
 end
 
@@ -95,8 +95,8 @@ end
 
 Then(/^a warehouse email should be sent$/) do
   expect(ActionMailer::Base.deliveries.count).to eq(1)
-  
+
   warehouse_email = ActionMailer::Base.deliveries.first
-  
+
   expect(warehouse_email.to).to match_array ['edmundmai@gmail.com']
 end

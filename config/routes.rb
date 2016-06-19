@@ -1,29 +1,29 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'sessions'}
-  
+
   resource :account, only: [:show] 
-  
+
   resources :orders, only: [:index, :show] do
     resources :returns, only: [:new, :create, :show]
   end
-  
+
   match 'about-us', to: "site#about_us", as: "about_us", via: [:get]
   match 'privacy-policy', to: "site#privacy_policy", as: "privacy_policy", via: [:get]
   match 'terms-and-conditions', to: "site#terms_and_conditions", as: "terms_and_conditions", via: [:get]
   match 'contact-us', to: "site#contact_us", as: "contact_us", via: [:get]
   match 'contact-form', to: "site#contact_form", as: "contact_form", via: [:post]
-  
-  
-  
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  
+
   resources :collections, only: [:index, :show]
-  
+
   resources :products, only: [:show]
-  
+
   resources :cart_items, only: [:destroy]
-  
+
   resource :checkout, only: [:show] do
     put 'update_cart'
     post 'add_to_cart'
@@ -34,22 +34,22 @@ Rails.application.routes.draw do
     post 'signup_user'
     post 'login_user'
   end
-  
+
   match "/admin" => "admin/site#index", via: [:get], :as => "admin"
 
   # You can have the root of your site routed with "root"
   root to: "site#index"
-  
+
   namespace :admin do
-    
+
     resources :returns
-    
+
     resources :discounts, only: [:index] do
       collection do
         patch 'apply'
       end
     end
-    
+
     resources :colors do
       member do
         delete 'delete_image'
@@ -58,9 +58,9 @@ Rails.application.routes.draw do
     resources :vendors
     resources :materials
     resources :shapes
-    
+
     resources :coupons
-    
+
     resources :collections do
       member do
         post 'add_products'
@@ -69,25 +69,25 @@ Rails.application.routes.draw do
         get 'reset_search'
       end
     end
-    
+
     resources :orders, only: [:index, :show, :update] do
       collection do
         get 'export'
       end
     end
-    
+
     resources :file_uploads, only: [:index] do
       collection do
         post 'update_taxes'
       end
     end
-    
+
     resources :variants, only: [] do
       collection do
         delete 'remove'
       end
     end
-    
+
     resources :products do
       collection do
         get 'generate_variants'
@@ -97,7 +97,7 @@ Rails.application.routes.draw do
         get 'add_variant'
       end
     end
-    
+
     resources :products_colors, only: [] do
       collection do
         put 'update_mens_sort_order'
@@ -105,13 +105,13 @@ Rails.application.routes.draw do
         delete 'remove'
       end
     end
-    
+
     resources :product_images, only: [:destroy] do
       collection do
         put 'update_sort_order'
       end
     end
-    
+
     resources :categories
   end
 

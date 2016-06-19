@@ -9,7 +9,7 @@ Rails.application.configure do
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
-  
+
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -69,7 +69,7 @@ Rails.application.configure do
   # the I18n.default_locale when a translation cannot be found).
   config.action_mailer.default_url_options = { :host => 'toddlertents.com' }
   config.action_mailer.asset_host = "http://www.toddlertents.com"
-  
+
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
@@ -83,12 +83,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-end
+  end
 
-ActionMailer::Base.delivery_method = :sendmail
+  ActionMailer::Base.delivery_method = :sendmail
 
-ToddlerTents::Application.config.middleware.use ExceptionNotification::Rack,
-  :email => {
+  ToddlerTents::Application.config.middleware.use ExceptionNotification::Rack,
+    :email => {
     :email_prefix => "[Production] ",
     :sender_address => %{"Exception Notification" <notifier@toddlertents.com>},
     :exception_recipients => %w{edmundmai@gmail.com}

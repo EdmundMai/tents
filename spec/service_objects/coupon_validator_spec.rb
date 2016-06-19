@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CouponValidator do
-  
+
   describe "initialize(args)" do
     context "coupon key is supplied" do
       it "sets the coupon attribute" do
@@ -11,7 +11,7 @@ describe CouponValidator do
         expect(coupon_validator.coupon).to eq(coupon)
       end
     end
-    
+
     context "coupon_code_entered key is supplied" do
       it "sets the coupon_code_entered value" do
         order = Order.new
@@ -19,7 +19,7 @@ describe CouponValidator do
         expect(coupon_validator.coupon_code_entered).to be_true
       end
     end
-    
+
     context "order key is supplied" do
       it "sets the order attribute" do
         order = Order.new
@@ -33,7 +33,7 @@ describe CouponValidator do
       end
     end
   end
-  
+
   describe "#valid?" do    
     context "coupon_code_entered is false" do
       it "returns true" do
@@ -42,7 +42,7 @@ describe CouponValidator do
         expect(coupon_validator.valid?).to be_true
       end
     end
-    
+
     context "coupon_code_entered is true" do
       context "coupon is nil" do
         it "returns false" do
@@ -50,7 +50,7 @@ describe CouponValidator do
           coupon_validator = CouponValidator.new(coupon_code_entered: true, order: order, coupon: nil)
           expect(coupon_validator.valid?).to be_false
         end
-        
+
         it "adds an error" do
           order = Order.new(subtotal: 999.99)
           coupon_validator = CouponValidator.new(coupon_code_entered: true, order: order, coupon: nil)
@@ -58,7 +58,7 @@ describe CouponValidator do
           expect(coupon_validator.errors.full_messages).to include "Please enter a valid coupon code."
         end
       end
-      
+
       context "today's date is before coupon.start_date" do
         it "returns false" do
           order = Order.new
@@ -76,7 +76,7 @@ describe CouponValidator do
           expect(coupon_validator.errors.full_messages).to include "The coupon you entered is inactive."
         end
       end
-    
+
       context "today's date is past coupon.end_date" do
         it "returns false" do
           order = Order.new

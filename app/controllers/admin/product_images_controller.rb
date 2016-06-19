@@ -1,5 +1,5 @@
 class Admin::ProductImagesController < Admin::BaseController
-  
+
   def destroy
     @product_image = ProductImage.find(params[:id])
     @product_image.destroy
@@ -8,7 +8,7 @@ class Admin::ProductImagesController < Admin::BaseController
       format.html { render nothing: true }
     end
   end
-  
+
   def update_sort_order
     return unless params[:new_order].present?
     params[:new_order].each_with_index do |product_image_id, index|
@@ -20,5 +20,5 @@ class Admin::ProductImagesController < Admin::BaseController
       format.js { render json: '' }
     end
   end
-  
+
 end

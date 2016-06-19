@@ -46,7 +46,7 @@ Then(/^I should see my return's information$/) do
   expect(page).to have_content(last_return.admin_comment)
   expect(page).to have_content(last_return.rma_code)
   expect(page).to have_content(last_return.reason)
-  
+
   expect(last_return.return_items.count).to be > 0
   last_return.return_items.each do |return_item|
     expect(page).to have_content(return_item.line_item.variant.product.name)

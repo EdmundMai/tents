@@ -18,7 +18,7 @@ module ToddlerTents
 
     config.autoload_paths += Dir[Rails.root.join('app', 'form_objects', '{**/}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'service_objects', '{**/}')]
-    
+
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
     config.assets.precompile += %w( .svg .eot .woff .ttf)
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.

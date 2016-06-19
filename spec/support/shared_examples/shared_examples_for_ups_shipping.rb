@@ -4,20 +4,20 @@ shared_examples_for "a ups_shipping" do
       ups_shipping = described_class.new(products: [])
       ups_shipping.products.should match_array []
     end
-    
+
     it "sets the shipping_address" do
       shipping_address = Address.new
       ups_shipping = described_class.new(shipping_address: shipping_address)
       ups_shipping.shipping_address.should == shipping_address
     end
-    
+
     it "sets the shipping_method" do
       shipping_method = ShippingMethod.new
       ups_shipping = described_class.new(shipping_method: shipping_method)
       ups_shipping.shipping_method.should == shipping_method
     end
   end
-  
+
   describe "#access_request" do
     it "returns a hash with an AccessLicenseNumber key" do
       ups_shipping = described_class.new
@@ -32,7 +32,7 @@ shared_examples_for "a ups_shipping" do
       ups_shipping.access_request["Password"].should == UPS_API["password"]
     end
   end
- 
+
   describe "#request" do
     let(:products) { FactoryGirl.create_list(:variant, 2) }
     let(:ups_shipping) { described_class.new(products: products) }
@@ -94,7 +94,7 @@ shared_examples_for "a ups_shipping" do
       ups_shipping.shipper
     end
   end
- 
+
   describe "#shipper_address" do
     let(:products) { FactoryGirl.create_list(:variant, 2) }
     let(:ups_shipping) { described_class.new(products: products) }

@@ -11,8 +11,8 @@ describe Vendor do
   its(:attributes) { should include "city" }
 
   it { should have_many(:products) }
-  
+
   it { should belong_to(:state) }
-  
+
   it { should validate_uniqueness_of(:name) }
 end

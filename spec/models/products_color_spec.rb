@@ -7,16 +7,16 @@ describe ProductsColor do
   its(:attributes) { should include("womens") }
   its(:attributes) { should include("mens_sort_order") }
   its(:attributes) { should include("womens_sort_order") }
-  
+
   it { should have_many(:variants).dependent(:destroy) }
   it { should have_many(:product_images).dependent(:destroy) }
-  
+
   it { should accept_nested_attributes_for(:variants) }
   it { should accept_nested_attributes_for(:product_images) }
-  
+
   it { should belong_to(:product) }
   it { should belong_to(:color) }
-  
+
   it { should validate_presence_of(:color) }
-  
+
 end

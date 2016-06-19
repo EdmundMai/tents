@@ -60,27 +60,27 @@ When(/^I fill out the form to create a return$/) do
   last_line_item = last_order.line_items.last
   check("return[return_items_attributes][0][chosen]")
   select("1", from: "return[return_items_attributes][0][quantity]")
-  
+
   select("Item is damaged", from: "return[reason]")
 end
 
 Then(/^my return should be placed$/) do
   user = User.last
   last_order = user.last_complete_order
-  
+
   expect(Return.count).to be == 1
-  
+
   last_return = Return.last
   expect(last_return.order).to eq(last_order)
   expect(last_return.user).to eq(user)
   expect(last_return.status).to eq(Return::PROCESSING)
   expect(last_return.reason).to eq("Item is damaged")
   expect(last_return.rma_code).not_to be_blank
-  
+
   last_return_item = last_return.return_items.last
   expect(last_return_item.quantity).to eq(1)
   expect(last_return_item.line_item).to eq(last_order.line_items.last)
-  
+
 end
 
 
@@ -119,7 +119,7 @@ Then(/^I should see all of my return's information$/) do
   expect(page).to have_content(last_return.admin_comment)
   expect(page).to have_content(last_return.rma_code)
   expect(page).to have_content(last_return.reason)
-  
+
   expect(last_return.return_items.count).to be > 0
   last_return.return_items.each do |return_item|
     expect(page).to have_content(return_item.line_item.variant.product.name)
@@ -142,22 +142,22 @@ Then(/^I should see a return invoice slip$/) do
   user = User.last
   last_return = user.returns.last 
   order = last_return.order
-  
+
   expect(last_return.return_items.count).to be > 0
-  
+
   last_return.return_items.each do |return_item|
     expect(page).to have_content(return_item.line_item.variant.product.name)
     expect(page).to have_content(return_item.line_item.variant.sku)
     expect(page).to have_content(return_item.line_item.unit_price)
     expect(page).to have_content(return_item.line_item.unit_price * return_item.quantity)
   end
-  
+
   expect(page).to have_content(order.shipping_address.full_name)
   expect(page).to have_content(order.shipping_address.street_address)
   expect(page).to have_content(order.shipping_address.street_address2)
   expect(page).to have_content(order.shipping_address.city_state_zipcode)
   expect(page).to have_content(order.shipping_address.phone_number)
-  
+
   expect(page).to have_content(STORE_ADDRESS[:name])
   expect(page).to have_content(STORE_ADDRESS[:address])
   expect(page).to have_content(STORE_ADDRESS[:address2])
@@ -172,7 +172,7 @@ Given(/^an existing past order with no more returnable items$/) do
   line_item = order.line_items.last
   return_item = FactoryGirl.create(:return_item, line_item: line_item, quantity: line_item.quantity)
   r = FactoryGirl.create(:return, order: order, return_items: [return_item])
-  
+
 end
 
 Then(/^I should not see a link for creating a return$/) do

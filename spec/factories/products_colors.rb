@@ -6,13 +6,13 @@ FactoryGirl.define do
     product_id 1
     mens false
     womens false
-    
+
     factory :products_color_with_variants do
       after(:create) do |pc, evaluator|
         pc.variants << FactoryGirl.create(:variant)
       end
     end
-    
+
     factory :products_color_with_variants_and_images do
       after(:create) do |pc, evaluator|
         pc.variants << FactoryGirl.create(:variant)

@@ -8,7 +8,7 @@ FactoryGirl.define do
     active true
     page_title "My Title"
     meta_description "My Meta Description"
-    
+
     factory :complete_product do
       after(:create) do |product, evaluator|
         product.products_colors << FactoryGirl.create(:products_color_with_variants_and_images, product_id: product.id)

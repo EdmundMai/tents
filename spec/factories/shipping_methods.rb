@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :shipping_method do
     name "MyString"
     ups_code "MyString"
-    
+
     factory :ups_ground do
       name "Ground"
       ups_code "03"

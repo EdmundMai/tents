@@ -14,7 +14,7 @@ When(/^I fill in the form to log in at the checkout page$/) do
   within(".user_info") do
     click_link("Log in")
   end
-  
+
   fill_in("user[email]", with: User.where(guest: [false, nil]).last.email)
   fill_in("user[password]", with: "test123")
 end
@@ -67,7 +67,7 @@ end
 When(/^I remove an item from my cart$/) do
   cart_item = CartItem.last
   first("a[href='/cart_items/#{cart_item.id}']").click
-  # first(:link, "X").click
+    # first(:link, "X").click
 end
 
 Then(/^my cart should have no items$/) do
@@ -170,208 +170,208 @@ end
 
 When(/^I fill in a invalid billing address$/) do
   # do nothing
-end
-
-When(/^I fill in a invalid credit card$/) do
-  # do nothing
-end
-
-Then(/^I should see errors for my payment info$/) do
-  sleep 2
-  expect(page).to have_content("Shipping address first name can't be blank")
-  expect(page).to have_content("Shipping address last name can't be blank")
-  expect(page).to have_content("Shipping address street address can't be blank")
-  # expect(page).to have_content("Shipping address apt/suite can't be blank")
-  expect(page).to have_content("Shipping address zip code can't be blank")
-  expect(page).to have_content("Shipping address city can't be blank")
-  expect(page).to have_content("Shipping address phone number can't be blank")
-  expect(page).to have_content("Billing address first name can't be blank")
-  expect(page).to have_content("Billing address last name can't be blank")
-  expect(page).to have_content("Billing address street address can't be blank")
-  # expect(page).to have_content("Billing address apt/suite can't be blank")
-  expect(page).to have_content("Billing address zip code can't be blank")
-  expect(page).to have_content("Billing address city can't be blank")
-  expect(page).to have_content("Billing address phone number can't be blank")
-  expect(page).to have_content("Credit card number can't be blank")
-  expect(page).to have_content("Credit card cvv can't be blank")
-  expect(page).to have_content("The zip code you entered is invalid. Please try again.")
-end
-
-Then(/^the review button should be disabled$/) do
-  expect(find("#review_order_button")[:disabled]).to be_true
-end
-
-Then(/^my permanent user cart should be empty$/) do
-  user = User.where(guest: [false,nil]).last
-  expect(user.cart.cart_items).to be_empty
-end
-
-
-Then(/^my order should be placed$/) do
-  expect(Order.in_progress_or_shipped.count).to eq(1)
-  
-  order = Order.last
-  
-  expect(order.status).to eq(Order::IN_PROGRESS)
-  expect(order.order_date).to eq(Date.today)
-  
-  expect(order.shipping_address).not_to be_nil
-  expect(order.shipping_address.first_name).to eq("Lorem")
-  expect(order.shipping_address.last_name).to eq("Ipsum")
-  expect(order.shipping_address.street_address).to eq("123 Fake Street")
-  expect(order.shipping_address.street_address2).to eq("12")
-  expect(order.shipping_address.state).to eq(State.new_york)
-  expect(order.shipping_address.zip_code).to eq(Tax.last.zip_code)
-  expect(order.shipping_address.phone_number).to eq("1231231234")
-
-  expect(order.billing_address).not_to be_nil
-  expect(order.shipping_address.first_name).to eq("Lorem")
-  expect(order.shipping_address.last_name).to eq("Ipsum")
-  expect(order.shipping_address.street_address).to eq("123 Fake Street")
-  expect(order.shipping_address.street_address2).to eq("12")
-  expect(order.shipping_address.state).to eq(State.new_york)
-  expect(order.shipping_address.zip_code).to eq(Tax.last.zip_code)
-  expect(order.shipping_address.phone_number).to eq("1231231234")
-  
-  expect(order.line_items).not_to be_empty
-  line_item = order.line_items.last
-  expect(line_item.quantity).to be == 1
-  expect(line_item.unit_price).to be == Variant.last.price
-end
-
-Then(/^my guest cookie should be deleted$/) do
-  if Capybara.current_session.driver.class == Capybara::Selenium::Driver
-    expect(page.driver.browser.manage.cookie_named('guest_id')).to be_nil
-  else
-    expect(Capybara.current_session.driver.request.cookies.[]('guest_id')).to be_nil
   end
-end
 
-Then(/^my user should be updated$/) do
-  order = Order.last
-  user = order.user
-  expect(user.email).to eq("abc123@yahoo.com")
-  expect(user.guest?).to be_false
-  expect(user.cart.cart_items).to be_empty
-end
+  When(/^I fill in a invalid credit card$/) do
+    # do nothing
+    end
 
+    Then(/^I should see errors for my payment info$/) do
+      sleep 2
+      expect(page).to have_content("Shipping address first name can't be blank")
+      expect(page).to have_content("Shipping address last name can't be blank")
+      expect(page).to have_content("Shipping address street address can't be blank")
+      # expect(page).to have_content("Shipping address apt/suite can't be blank")
+      expect(page).to have_content("Shipping address zip code can't be blank")
+      expect(page).to have_content("Shipping address city can't be blank")
+      expect(page).to have_content("Shipping address phone number can't be blank")
+      expect(page).to have_content("Billing address first name can't be blank")
+      expect(page).to have_content("Billing address last name can't be blank")
+      expect(page).to have_content("Billing address street address can't be blank")
+      # expect(page).to have_content("Billing address apt/suite can't be blank")
+      expect(page).to have_content("Billing address zip code can't be blank")
+      expect(page).to have_content("Billing address city can't be blank")
+      expect(page).to have_content("Billing address phone number can't be blank")
+      expect(page).to have_content("Credit card number can't be blank")
+      expect(page).to have_content("Credit card cvv can't be blank")
+      expect(page).to have_content("The zip code you entered is invalid. Please try again.")
+    end
 
-Then(/^I should receive an order confirmation email$/) do
-  order = Order.last
-  expect(ActionMailer::Base.deliveries.count).to eq(1)
-  expect(ActionMailer::Base.deliveries.first.to).to match_array [order.user.email]
-end
+    Then(/^the review button should be disabled$/) do
+      expect(find("#review_order_button")[:disabled]).to be_true
+    end
 
-When(/^I enter a valid free shipping coupon code$/) do
-  free_shipping_coupon = FreeShippingCoupon.last
-  fill_in("payment_info[coupon_code]", with: free_shipping_coupon.code)
-end
-
-Then(/^my shipping should be set to zero$/) do
-  order = Order.last
-  expect(order.shipping).to eq(0)
-end
-
-When(/^I enter a valid flat coupon code$/) do
-  flat_coupon = FlatCoupon.last
-  fill_in("payment_info[coupon_code]", with: flat_coupon.code)
-end
-
-Then(/^my subtotal should be discounted by a flat amount$/) do
-  sleep 1
-  order = Order.last
-  cart = order.user.cart
-  flat_coupon = FlatCoupon.last
-  puts "cart = #{cart.inspect}"
-  puts "cart.cart_items = #{cart.cart_items.inspect}"
-  puts "order = #{order.inspect}"
-  puts "flat_coupon = #{flat_coupon.inspect}"
-  expect(order.subtotal).to eq(cart.total)
-  expect(order.savings).to eq(Money.new(flat_coupon.value*100))
-  expect(page).to have_content("Savings")
-  expect(page).to have_content(order.savings)
-end
-
-When(/^I fill in the form to sign up at the checkout page$/) do
-  within(".main-container") do
-    click_link("Sign up")
-    fill_in("user[email]", with: "abc123@yahoo.com")
-    fill_in("user[password]", with: "test123")
-  end
-end
+    Then(/^my permanent user cart should be empty$/) do
+      user = User.where(guest: [false,nil]).last
+      expect(user.cart.cart_items).to be_empty
+    end
 
 
+    Then(/^my order should be placed$/) do
+      expect(Order.in_progress_or_shipped.count).to eq(1)
 
-When(/^I enter a valid percentage coupon code$/) do
-  percentage_coupon = PercentageCoupon.last
-  fill_in("payment_info[coupon_code]", with: percentage_coupon.code)
-end
+      order = Order.last
 
-Then(/^my subtotal should be discounted by a percentage amount$/) do
-  sleep 1
-  order = Order.last
-  cart = order.user.cart
-  percentage_coupon = PercentageCoupon.last
-  expect(order.subtotal).to eq(cart.total)
-  expect(order.savings).to eq(cart.total * percentage_coupon.value / 100 )
-  expect(page).to have_content("Savings")
-  expect(page).to have_content(order.savings)
-end
+      expect(order.status).to eq(Order::IN_PROGRESS)
+      expect(order.order_date).to eq(Date.today)
 
-Given(/^an existing expired coupon that has a high minimum purchase amount$/) do
-  FactoryGirl.create(:free_shipping_coupon, end_date: Date.yesterday, minimum_purchase_amount: 9999.99)
-end
+      expect(order.shipping_address).not_to be_nil
+      expect(order.shipping_address.first_name).to eq("Lorem")
+      expect(order.shipping_address.last_name).to eq("Ipsum")
+      expect(order.shipping_address.street_address).to eq("123 Fake Street")
+      expect(order.shipping_address.street_address2).to eq("12")
+      expect(order.shipping_address.state).to eq(State.new_york)
+      expect(order.shipping_address.zip_code).to eq(Tax.last.zip_code)
+      expect(order.shipping_address.phone_number).to eq("1231231234")
 
-When(/^I enter the bad coupon's code$/) do
-  free_shipping_coupon = FreeShippingCoupon.last
-  fill_in("payment_info[coupon_code]", with: free_shipping_coupon.code)
-end
+      expect(order.billing_address).not_to be_nil
+      expect(order.shipping_address.first_name).to eq("Lorem")
+      expect(order.shipping_address.last_name).to eq("Ipsum")
+      expect(order.shipping_address.street_address).to eq("123 Fake Street")
+      expect(order.shipping_address.street_address2).to eq("12")
+      expect(order.shipping_address.state).to eq(State.new_york)
+      expect(order.shipping_address.zip_code).to eq(Tax.last.zip_code)
+      expect(order.shipping_address.phone_number).to eq("1231231234")
 
-Then(/^I should see errors pertaining the coupon I am using$/) do
-  expect(page).to have_content("The coupon you entered is expired.")
-  expect(page).to have_content("Your order does not meet the minimum purchase amount for this coupon.")
-end
+      expect(order.line_items).not_to be_empty
+      line_item = order.line_items.last
+      expect(line_item.quantity).to be == 1
+      expect(line_item.unit_price).to be == Variant.last.price
+    end
 
-When(/^I enter gibberish into the coupon code field$/) do
-  fill_in("payment_info[coupon_code]", with: "kjjksjksak")
-end
+    Then(/^my guest cookie should be deleted$/) do
+      if Capybara.current_session.driver.class == Capybara::Selenium::Driver
+        expect(page.driver.browser.manage.cookie_named('guest_id')).to be_nil
+      else
+        expect(Capybara.current_session.driver.request.cookies.[]('guest_id')).to be_nil
+      end
+    end
 
-Then(/^I should be prompted to fill in a real coupon code$/) do
-  expect(page).to have_content("Please enter a valid coupon code.")
-end
+    Then(/^my user should be updated$/) do
+      order = Order.last
+      user = order.user
+      expect(user.email).to eq("abc123@yahoo.com")
+      expect(user.guest?).to be_false
+      expect(user.cart.cart_items).to be_empty
+    end
 
-Then(/^the coupon code field should automatically be filled in with the coupon's code$/) do
-  site_wide_coupon = Coupon.where(site_wide: true).last
-  expect(page).to have_field("payment_info[coupon_code]", with: site_wide_coupon.code)
-end
 
-Then(/^the coupon code field should not be filled in$/) do
-  expect(page).to have_field("payment_info[coupon_code]", with: "")
-end
+    Then(/^I should receive an order confirmation email$/) do
+      order = Order.last
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      expect(ActionMailer::Base.deliveries.first.to).to match_array [order.user.email]
+    end
 
-Then(/^I should be on the checkout page$/) do
-  expect(current_path).to eq(billing_checkout_path)
-end
+    When(/^I enter a valid free shipping coupon code$/) do
+      free_shipping_coupon = FreeShippingCoupon.last
+      fill_in("payment_info[coupon_code]", with: free_shipping_coupon.code)
+    end
 
-When(/^I fill in the form to sign up at the checkout page with an invalid email$/) do
-  within(".main-container") do
-    click_link("Sign up")
-    click_button("Sign up")
-  end
-end
+    Then(/^my shipping should be set to zero$/) do
+      order = Order.last
+      expect(order.shipping).to eq(0)
+    end
 
-Then(/^I should see sign up errors$/) do
-  expect(page).to have_content("Email can't be blank")
-  expect(page).to have_content("Email is invalid")
-end
+    When(/^I enter a valid flat coupon code$/) do
+      flat_coupon = FlatCoupon.last
+      fill_in("payment_info[coupon_code]", with: flat_coupon.code)
+    end
 
-When(/^I fill in the form to log in at the checkout page with an invalid password$/) do
-  within(".main-container") do
-    click_link("Log in")
-    click_button("Log in")
-  end
-end
+    Then(/^my subtotal should be discounted by a flat amount$/) do
+      sleep 1
+      order = Order.last
+      cart = order.user.cart
+      flat_coupon = FlatCoupon.last
+      puts "cart = #{cart.inspect}"
+        puts "cart.cart_items = #{cart.cart_items.inspect}"
+        puts "order = #{order.inspect}"
+        puts "flat_coupon = #{flat_coupon.inspect}"
+        expect(order.subtotal).to eq(cart.total)
+      expect(order.savings).to eq(Money.new(flat_coupon.value*100))
+      expect(page).to have_content("Savings")
+      expect(page).to have_content(order.savings)
+    end
 
-Then(/^I should see sign in errors$/) do
-  expect(page).to have_content("The email and password you entered are incorrect. Please try again.")
-end
+    When(/^I fill in the form to sign up at the checkout page$/) do
+      within(".main-container") do
+        click_link("Sign up")
+        fill_in("user[email]", with: "abc123@yahoo.com")
+        fill_in("user[password]", with: "test123")
+      end
+    end
+
+
+
+    When(/^I enter a valid percentage coupon code$/) do
+      percentage_coupon = PercentageCoupon.last
+      fill_in("payment_info[coupon_code]", with: percentage_coupon.code)
+    end
+
+    Then(/^my subtotal should be discounted by a percentage amount$/) do
+      sleep 1
+      order = Order.last
+      cart = order.user.cart
+      percentage_coupon = PercentageCoupon.last
+      expect(order.subtotal).to eq(cart.total)
+      expect(order.savings).to eq(cart.total * percentage_coupon.value / 100 )
+      expect(page).to have_content("Savings")
+      expect(page).to have_content(order.savings)
+    end
+
+    Given(/^an existing expired coupon that has a high minimum purchase amount$/) do
+      FactoryGirl.create(:free_shipping_coupon, end_date: Date.yesterday, minimum_purchase_amount: 9999.99)
+    end
+
+    When(/^I enter the bad coupon's code$/) do
+      free_shipping_coupon = FreeShippingCoupon.last
+      fill_in("payment_info[coupon_code]", with: free_shipping_coupon.code)
+    end
+
+    Then(/^I should see errors pertaining the coupon I am using$/) do
+      expect(page).to have_content("The coupon you entered is expired.")
+      expect(page).to have_content("Your order does not meet the minimum purchase amount for this coupon.")
+    end
+
+    When(/^I enter gibberish into the coupon code field$/) do
+      fill_in("payment_info[coupon_code]", with: "kjjksjksak")
+    end
+
+    Then(/^I should be prompted to fill in a real coupon code$/) do
+      expect(page).to have_content("Please enter a valid coupon code.")
+    end
+
+    Then(/^the coupon code field should automatically be filled in with the coupon's code$/) do
+      site_wide_coupon = Coupon.where(site_wide: true).last
+      expect(page).to have_field("payment_info[coupon_code]", with: site_wide_coupon.code)
+    end
+
+    Then(/^the coupon code field should not be filled in$/) do
+      expect(page).to have_field("payment_info[coupon_code]", with: "")
+    end
+
+    Then(/^I should be on the checkout page$/) do
+      expect(current_path).to eq(billing_checkout_path)
+    end
+
+    When(/^I fill in the form to sign up at the checkout page with an invalid email$/) do
+      within(".main-container") do
+        click_link("Sign up")
+        click_button("Sign up")
+      end
+    end
+
+    Then(/^I should see sign up errors$/) do
+      expect(page).to have_content("Email can't be blank")
+      expect(page).to have_content("Email is invalid")
+    end
+
+    When(/^I fill in the form to log in at the checkout page with an invalid password$/) do
+      within(".main-container") do
+        click_link("Log in")
+        click_button("Log in")
+      end
+    end
+
+    Then(/^I should see sign in errors$/) do
+      expect(page).to have_content("The email and password you entered are incorrect. Please try again.")
+    end

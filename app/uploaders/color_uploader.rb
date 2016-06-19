@@ -17,7 +17,7 @@ class ColorUploader < CarrierWave::Uploader::Base
       "#{Rails.root}/public/test/file_uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     else
       "uploads/#{model.class.to_s.underscore}/#{model.id}"
-    end
+      end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

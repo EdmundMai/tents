@@ -20,7 +20,7 @@ end
 
 Then(/^I should see the admin homepage$/) do
   user = User.last
-  
+
   expect(current_path).to eq(admin_path)
   expect(page).to have_content("Admin Homepage")
   expect(page).to have_link("Products")

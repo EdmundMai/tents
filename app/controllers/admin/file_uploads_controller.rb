@@ -1,8 +1,8 @@
 class Admin::FileUploadsController < Admin::BaseController
-  
+
   def index
   end
-  
+
   def update_taxes
     if params[:tax_rates]
       directory = "public/file_uploads"
@@ -19,5 +19,5 @@ class Admin::FileUploadsController < Admin::BaseController
       end
     end
   end
-  
+
 end

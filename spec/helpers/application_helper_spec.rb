@@ -10,7 +10,7 @@ describe ApplicationHelper do
       expect(vendor_options_with_extra_link_to_create_vendor).to include "<option value='' id='new_vendor_option'>Create a new vendor...</option>"
     end
   end
-  
+
   describe ".color_options_with_extra_link_to_create_color" do
     it "returns an option for each color, and one for creating a new color" do
       color = FactoryGirl.create(:color)
@@ -18,7 +18,7 @@ describe ApplicationHelper do
       expect(color_options_with_extra_link_to_create_color).to include "<option value='' id='new_color_option'>Create a new color...</option>"
     end
   end
-  
+
   describe ".shape_options_with_extra_link_to_create_shape" do
     it "returns an option for each shape, and one for creating a new shape" do
       shape = FactoryGirl.create(:shape)
@@ -26,7 +26,7 @@ describe ApplicationHelper do
       expect(shape_options_with_extra_link_to_create_shape).to include "<option value='' id='new_shape_option'>Create a new shape...</option>"
     end
   end
-  
+
   describe ".material_options_with_extra_link_to_create_material" do
     it "returns an option for each material, and one for creating a new material" do
       material = FactoryGirl.create(:material)
@@ -34,7 +34,7 @@ describe ApplicationHelper do
       expect(material_options_with_extra_link_to_create_material).to include "<option value='' id='new_material_option'>Create a new material...</option>"
     end
   end
-  
+
   describe ".order_qualifies_for_coupon?(order, coupon)" do
     context "order meets requirements for coupon" do
       it "returns true" do
@@ -44,7 +44,7 @@ describe ApplicationHelper do
         expect(order_qualifies_for_coupon?(order, coupon)).to be_true
       end
     end
-    
+
     context "order does not meet requirements for coupon" do
       it "returns false" do
         order = Order.new
@@ -54,6 +54,6 @@ describe ApplicationHelper do
       end
     end
   end
-  
-  
+
+
 end

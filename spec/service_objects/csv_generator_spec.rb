@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe CsvGenerator do
-  
+
   describe ".orders_report(from_date, to_date)" do
     it "returns a CSV that includes all the order info from from_date to to_date for orders in progress and shipped orders" do
       order1 = FactoryGirl.create(:in_progress_order)
       order2 = FactoryGirl.create(:shipped_order)
       data = CsvGenerator.orders_report(Date.yesterday, Date.tomorrow)
-      
+
       headers = CSV.parse(data)[0].first
       expect(headers).to include "ID"
       expect(headers).to include "Status"
@@ -39,7 +39,7 @@ describe CsvGenerator do
       expect(headers).to include "Item Quantity"
       expect(headers).to include "Item Unit Price"
       expect(headers).to include "Item SKU"
-      
+
       orders = [order1, order2]
       index = 0
       CSV.parse(data)[1..-1].each do |csv_obj|
@@ -53,7 +53,7 @@ describe CsvGenerator do
         expect(row).to include order.subtotal.to_s
         expect(row).to include order.tax.to_s
         expect(row).to include order.shipping.to_s
-               
+
         expect(row).to include order.shipping_address.first_name
         expect(row).to include order.shipping_address.last_name
         expect(row).to include order.shipping_address.street_address
@@ -62,7 +62,7 @@ describe CsvGenerator do
         expect(row).to include order.shipping_address.state.short_name
         expect(row).to include order.shipping_address.zip_code
         expect(row).to include order.shipping_address.phone_number
-               
+
         expect(row).to include order.billing_address.first_name
         expect(row).to include order.billing_address.last_name
         expect(row).to include order.billing_address.street_address
@@ -71,7 +71,7 @@ describe CsvGenerator do
         expect(row).to include order.billing_address.state.short_name
         expect(row).to include order.billing_address.zip_code
         expect(row).to include order.billing_address.phone_number
-        
+
         expect(order.line_items).not_to be_empty
         order.line_items.each do |line_item|
           expect(row).to include line_item.quantity.to_s
@@ -83,9 +83,9 @@ describe CsvGenerator do
         end
         index = index + 1
       end
-      
+
     end
   end
 
-  
+
 end

@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140823164004) do
+ActiveRecord::Schema.define(version: 20160619214212) do
 
-  create_table "addresses", force: true do |t|
+  create_table "addresses", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "street_address"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.integer  "order_id"
   end
 
-  create_table "cart_items", force: true do |t|
+  create_table "cart_items", force: :cascade do |t|
     t.integer  "cart_id"
     t.integer  "variant_id"
     t.integer  "quantity"
@@ -36,19 +36,19 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.datetime "updated_at"
   end
 
-  create_table "carts", force: true do |t|
+  create_table "carts", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "collections", force: true do |t|
+  create_table "collections", force: :cascade do |t|
     t.string   "name"
     t.text     "short_description"
     t.text     "long_description"
@@ -58,23 +58,23 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.string   "slug"
   end
 
-  add_index "collections", ["slug"], name: "index_collections_on_slug", using: :btree
+  add_index "collections", ["slug"], name: "index_collections_on_slug"
 
-  create_table "collections_products", force: true do |t|
+  create_table "collections_products", force: :cascade do |t|
     t.integer  "collection_id"
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "colors", force: true do |t|
+  create_table "colors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
   end
 
-  create_table "coupons", force: true do |t|
+  create_table "coupons", force: :cascade do |t|
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "minimum_purchase_amount_cents",                             default: 0,     null: false
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.string   "code"
   end
 
-  create_table "line_items", force: true do |t|
+  create_table "line_items", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "quantity"
     t.integer  "variant_id"
@@ -98,13 +98,13 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.datetime "updated_at"
   end
 
-  create_table "materials", force: true do |t|
+  create_table "materials", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "order_date"
     t.integer  "total_cents",       default: 0,     null: false
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.string   "savings_currency",  default: "USD", null: false
   end
 
-  create_table "product_images", force: true do |t|
+  create_table "product_images", force: :cascade do |t|
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.integer  "products_color_id"
   end
 
-  create_table "products", force: true do |t|
+  create_table "products", force: :cascade do |t|
     t.string   "name"
     t.boolean  "active"
     t.string   "page_title"
@@ -149,9 +149,9 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.string   "age_group"
   end
 
-  add_index "products", ["slug"], name: "index_products_on_slug", using: :btree
+  add_index "products", ["slug"], name: "index_products_on_slug"
 
-  create_table "products_colors", force: true do |t|
+  create_table "products_colors", force: :cascade do |t|
     t.integer  "color_id"
     t.integer  "product_id"
     t.boolean  "mens"
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.integer  "womens_sort_order"
   end
 
-  create_table "return_items", force: true do |t|
+  create_table "return_items", force: :cascade do |t|
     t.integer  "return_id"
     t.integer  "quantity"
     t.integer  "line_item_id"
@@ -170,7 +170,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.datetime "updated_at"
   end
 
-  create_table "returns", force: true do |t|
+  create_table "returns", force: :cascade do |t|
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.text     "admin_comment"
   end
 
-  create_table "roles", force: true do |t|
+  create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.integer  "resource_id"
     t.string   "resource_type"
@@ -191,37 +191,37 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
-  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "roles", ["name"], name: "index_roles_on_name"
 
-  create_table "shapes", force: true do |t|
+  create_table "shapes", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "shipping_methods", force: true do |t|
+  create_table "shipping_methods", force: :cascade do |t|
     t.string   "name"
     t.string   "ups_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "sizes", force: true do |t|
+  create_table "sizes", force: :cascade do |t|
     t.string   "name"
     t.integer  "sort_order"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "states", force: true do |t|
+  create_table "states", force: :cascade do |t|
     t.string   "long_name"
     t.string   "short_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "taxes", force: true do |t|
+  create_table "taxes", force: :cascade do |t|
     t.integer  "state_id"
     t.string   "zip_code"
     t.decimal  "rate",       precision: 8, scale: 5
@@ -229,7 +229,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -246,17 +246,17 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.string   "guest_email"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email"
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
-  create_table "users_roles", id: false, force: true do |t|
+  create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
 
-  create_table "variants", force: true do |t|
+  create_table "variants", force: :cascade do |t|
     t.decimal  "weight",                  precision: 30, scale: 2
     t.string   "measurements"
     t.datetime "created_at"
@@ -272,7 +272,7 @@ ActiveRecord::Schema.define(version: 20140823164004) do
     t.string   "discount_price_currency",                          default: "USD", null: false
   end
 
-  create_table "vendors", force: true do |t|
+  create_table "vendors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

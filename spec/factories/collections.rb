@@ -6,13 +6,13 @@ FactoryGirl.define do
     short_description "MyText"
     long_description "MyText"
     active false
-    
+
     factory :collection_with_a_product do
       after(:create) do |collection, evaluator|
         collection.products << FactoryGirl.create(:product)
       end
     end
-    
+
     factory :collection_with_a_complete_product do
       after(:create) do |collection, evaluator|
         collection.products << FactoryGirl.create(:complete_product)

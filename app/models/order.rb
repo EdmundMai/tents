@@ -1,46 +1,46 @@
 class Order < ActiveRecord::Base
-  
+
   INCOMPLETE = 'Incomplete'
   IN_PROGRESS = 'In progress'
   SHIPPED = 'Shipped'
-  
+
   belongs_to :coupon
   belongs_to :user
   has_one :shipping_address, dependent: :destroy
   has_one :billing_address, dependent: :destroy
-  
+
   has_many :line_items, dependent: :destroy
-  
+
   monetize :savings_cents
   monetize :total_cents
   monetize :tax_cents
   monetize :subtotal_cents
   monetize :shipping_cents
-  
+
   scope :in_progress_or_shipped, -> { where(status: [Order::IN_PROGRESS, Order::SHIPPED]).order("order_date ASC") }
-  
+
   def po_number
     1000 + id
   end
-  
+
   def return_threshold_passed?
     return true if order_date.nil?
-    
+
     order_date < 31.days.ago
   end
-  
+
   def attach_coupon!(coupon)
     update_attributes!(coupon_id: coupon.id)
   end
-  
+
   def self.status_options
     [Order::IN_PROGRESS, Order::SHIPPED]
   end
-  
+
   def has_no_more_items_to_return?
     line_items.map(&:returnable_quantity).reduce(:+) == 0
   end
-  
+
   def update_all_fees!
     #it must be in this order
     calculate_subtotal
@@ -50,7 +50,7 @@ class Order < ActiveRecord::Base
     calculate_total
     save!
   end
-  
+
   def finalize!
     user.cart.cart_items.each do |cart_item|
       line_item = LineItem.new(cart_item.attributes.except("id", "cart_id"))
@@ -64,32 +64,32 @@ class Order < ActiveRecord::Base
     save
     user.cart.empty!
   end
-  
+
   def set_order_date_to_today
     self.order_date = Date.today
   end
-  
+
   def set_status_to_in_progress
     self.update_attributes!(status: IN_PROGRESS)
   end
-  
+
   def calculate_subtotal
     self.subtotal = user.cart.total
   end
-  
+
   def calculate_shipping
     ups = UpsShippingQuote.new(products: user.cart.cart_items.map(&:variant), 
-                    shipping_method: ShippingMethod.last,
-                    shipping_address: shipping_address
-                    )
+                               shipping_method: ShippingMethod.last,
+                               shipping_address: shipping_address
+                              )
     self.shipping = ups.request_shipping_rate
   end
-  
+
   def calculate_coupon_discount
     puts "here!!!!!"
     coupon.apply_discount(self) if coupon
   end
-  
+
   def calculate_tax
     if self.shipping_address.state && self.shipping_address.state == State.new_york
       corresponding_tax = Tax.find_by(zip_code: self.shipping_address.zip_code, state_id: self.shipping_address.state_id)
@@ -98,10 +98,10 @@ class Order < ActiveRecord::Base
       self.tax = 0.00
     end
   end
-  
+
   def calculate_total
     self.total = self.subtotal + self.shipping + self.tax - self.savings
   end
-  
-  
+
+
 end

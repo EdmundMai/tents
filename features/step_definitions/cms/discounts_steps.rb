@@ -51,12 +51,12 @@ Then(/^that product should now have no discounts$/) do
 end
 
 Then(/^that collection's products should now have no discounts$/) do
-collection = Collection.last
-expect(collection.products.count).to be > 0
-collection.products.each do |product|
-  expect(product.variants.count).to be > 0
-  product.variants.each do |variant|
-    expect(variant.discount_price).to be_nil
+  collection = Collection.last
+  expect(collection.products.count).to be > 0
+  collection.products.each do |product|
+    expect(product.variants.count).to be > 0
+    product.variants.each do |variant|
+      expect(variant.discount_price).to be_nil
+    end
   end
-end
 end

@@ -50,15 +50,15 @@ namespace :deploy do
   task :set_permissions do
     on roles :all do
       puts "RELEASE_PATH = #{release_path}"
-      puts "RELEASES_PATH = #{releases_path}"
-      execute :sudo, "chown -R www-data:dev #{release_path}"
+        puts "RELEASES_PATH = #{releases_path}"
+        execute :sudo, "chown -R www-data:dev #{release_path}"
       execute :sudo, "chown -R www-data:dev #{releases_path}"
       execute :sudo, "chmod -R g+rw #{releases_path}"
       execute :sudo, "chown -R www-data:dev /usr/local/www/toddlertents-staging/shared/tmp/cache"
       execute :sudo, "chmod -R g+rw /usr/local/www/toddlertents-staging/shared/tmp/cache"
     end
   end
-  
+
   task :create_symlinks do
     on roles :app do
       execute :sudo, "ln -s #{shared_path}/uploads #{release_path}/public/uploads"
@@ -72,20 +72,20 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       execute :touch, release_path.join('tmp/restart.txt')
+      end
     end
-  end
 
-  after :publishing, :restart
-  after :deploy, :create_symlinks
-  after :finished, :set_permissions
+    after :publishing, :restart
+    after :deploy, :create_symlinks
+    after :finished, :set_permissions
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+    after :restart, :clear_cache do
+      on roles(:web), in: :groups, limit: 3, wait: 10 do
+        # Here we can do anything such as:
+        # within release_path do
+        #   execute :rake, 'cache:clear'
+        # end
+        end
+      end
+
     end
-  end
-
-end

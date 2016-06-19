@@ -1,6 +1,6 @@
 Then(/^I should see that product's details$/) do
   product = Product.last
-  
+
   expect(page).to have_content(product.name)
   expect(page).to have_content(product.long_description)
   expect(page).to have_content(product.vendor.name)
